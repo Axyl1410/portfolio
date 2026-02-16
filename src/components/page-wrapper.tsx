@@ -1,17 +1,37 @@
 "use client";
 
-import { type HTMLMotionProps, motion } from "framer-motion";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import ReactLenis from "lenis/react";
+import { usePathname } from "next/navigation";
+import { useRef } from "react";
 
-const PageWrapper = (props: HTMLMotionProps<"div">) => {
+gsap.registerPlugin(useGSAP);
+
+const PageWrapper = ({ children }: { children: React.ReactNode }) => {
+  const container = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+
+  useGSAP(
+    () => {
+      if (container.current && pathname) {
+        gsap.fromTo(
+          container.current,
+          { opacity: 0 },
+          { opacity: 1, delay: 1, ease: "power4.out" }
+        );
+      }
+    },
+    { scope: container, dependencies: [pathname] }
+  );
+
   return (
-    <div className="bg-white">
-      <motion.div
-        animate={{ opacity: 1 }}
-        initial={{ opacity: 0 }}
-        transition={{ delay: 1 }}
-        {...props}
-      />
-    </div>
+    <>
+      <ReactLenis root />
+      <div className="bg-white">
+        <div ref={container}>{children}</div>
+      </div>
+    </>
   );
 };
 

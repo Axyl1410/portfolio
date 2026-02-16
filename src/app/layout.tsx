@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { ViewTransitions } from "next-view-transitions";
 import "./globals.css";
+import Nav from "@/components/nav";
+import PageWrapper from "@/components/page-wrapper";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,14 +16,19 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <head>
           <link
             href="https://fonts.cdnfonts.com/css/pp-neue-montreal"
             rel="stylesheet"
           />
         </head>
-        <body className={"antialiased"}>{children}</body>
+        <body className="antialiased">
+          <PageWrapper>
+            <Nav />
+            {children}
+          </PageWrapper>
+        </body>
       </html>
     </ViewTransitions>
   );

@@ -1,4 +1,6 @@
 pre-commit:
+  exclude:
+    - "cloudflare-env.d.ts"
   jobs:
     - run: bun x ultracite fix
       glob:
