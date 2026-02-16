@@ -1,10 +1,9 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import ReactLenis from "lenis/react";
 import { usePathname } from "next/navigation";
 import { useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap-client";
 
 gsap.registerPlugin(useGSAP);
 
@@ -22,7 +21,7 @@ const PageWrapper = ({ children }: { children: React.ReactNode }) => {
         );
       }
     },
-    { scope: container, dependencies: [pathname] }
+    { scope: container, dependencies: [pathname], revertOnUpdate: true }
   );
 
   return (

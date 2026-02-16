@@ -1,8 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTransitionRouter } from "next-view-transitions";
+import type { MouseEvent, ReactNode } from "react";
+import { AnimatedLink } from "@/components/animated-link";
 import { pageAnimation } from "@/utils/page-animation";
 
 interface NavLink {
@@ -29,7 +30,6 @@ const SOCIALS: NavLink[] = [
   { label: "Email", url: "mailto:you@example.com" },
   { label: "Github", url: "https://github.com" },
 ];
-
 const formatTimeInVN = (date: Date) =>
   new Intl.DateTimeFormat("en-US", {
     hour: "2-digit",
@@ -40,11 +40,11 @@ const formatTimeInVN = (date: Date) =>
 
 const renderCommaSeparated = (
   items: NavLink[],
-  renderLink: (item: NavLink) => React.ReactNode
+  renderItem: (item: NavLink) => ReactNode
 ) =>
   items.map((item, index) => (
-    <span className={NAV_VALUE_CLASS} key={item.label}>
-      {renderLink(item)}
+    <span key={item.label}>
+      {renderItem(item)}
       {index < items.length - 1 && <span>{",\u00A0"}</span>}
     </span>
   ));
@@ -55,7 +55,7 @@ const createNavClickHandler =
     router: ReturnType<typeof useTransitionRouter>,
     url: string
   ) =>
-  (e: React.MouseEvent<HTMLAnchorElement>) => {
+  (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     if (pathname === url) {
       return;
@@ -79,12 +79,12 @@ const Nav = () => {
         </div>
         <div className="flex w-full flex-wrap">
           <span className={NAV_VALUE_CLASS}>
-            <Link
+            <AnimatedLink
               href="/"
               onClick={createNavClickHandler(pathname, router, "/")}
             >
               Axyl™
-            </Link>
+            </AnimatedLink>
             , {currentYear}
           </span>
           <div className={NAV_VALUE_CLASS}>GMT+7 ({timeInVN}, VN)</div>
@@ -108,12 +108,14 @@ const Nav = () => {
         </div>
         <div className="flex w-full flex-wrap">
           {renderCommaSeparated(ROUTES, (route) => (
-            <Link
-              href={route.url}
-              onClick={createNavClickHandler(pathname, router, route.url)}
-            >
-              {route.label}
-            </Link>
+            <span className={NAV_VALUE_CLASS}>
+              <AnimatedLink
+                href={route.url}
+                onClick={createNavClickHandler(pathname, router, route.url)}
+              >
+                {route.label}
+              </AnimatedLink>
+            </span>
           ))}
         </div>
       </div>
@@ -124,7 +126,9 @@ const Nav = () => {
         </div>
         <div className="flex w-full flex-wrap">
           {renderCommaSeparated(SOCIALS, (social) => (
-            <Link href={social.url}>{social.label}</Link>
+            <span className={NAV_VALUE_CLASS}>
+              <AnimatedLink href={social.url}>{social.label}</AnimatedLink>
+            </span>
           ))}
         </div>
       </div>
