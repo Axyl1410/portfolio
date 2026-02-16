@@ -18,7 +18,7 @@ const PageWrapper = ({ children }: { children: React.ReactNode }) => {
         gsap.fromTo(
           container.current,
           { opacity: 0 },
-          { opacity: 1, delay: 1, ease: "power4.out" }
+          { opacity: 1, delay: 1 }
         );
       }
     },
