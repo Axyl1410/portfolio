@@ -55,6 +55,7 @@ export default function Home() {
           <div className="u-meta">Use menu to explore</div>
         </div>
       </div>
+
       <HomeIntroLoader contentRef={contentRef} />
     </>
   );
