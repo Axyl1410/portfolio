@@ -28,6 +28,7 @@ export const metadata: Metadata = {
       "Creative developer bridging the gap between design and technology",
     images: ["/og"],
   },
+  metadataBase: new URL("https://nguyentruonggiang.id.vn"),
 };
 
 export default function RootLayout({
