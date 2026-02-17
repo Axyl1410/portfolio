@@ -37,8 +37,8 @@ export default function HomeIntroLoader({
       return;
     }
 
-    // Hide nav and content
     if (navEl) {
+      // Hide nav and content
       gsap.set(navEl, { opacity: 0 });
     }
     gsap.set(contentEl, { opacity: 0 });
@@ -68,10 +68,10 @@ export default function HomeIntroLoader({
       clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
     });
 
-    const tl = gsap.timeline({
-      onComplete: () => {
-        sessionStorage.setItem(INTRO_LOADER_SESSION_KEY, "true");
-      },
+    const tl = gsap.timeline();
+
+    tl.to(loaderEl, {
+      duration: 0.5,
     });
 
     // Step 1: Clip-path reveal from top to bottom
@@ -94,6 +94,8 @@ export default function HomeIntroLoader({
       ease: "power3.inOut",
       onComplete: () => {
         gsap.set(loaderEl, { clearProps: "all" });
+        document.body.style.background = "black";
+        sessionStorage.setItem(INTRO_LOADER_SESSION_KEY, "true");
       },
     });
 
