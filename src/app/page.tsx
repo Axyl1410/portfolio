@@ -17,8 +17,8 @@ export default function Home() {
         <div className="u-hero">
           <h1 className="u-hero-title u-text-indent-hero">
             My name is Truong Giang. I'm a{" "}
-            <span className="u-text-primary">Versatile Software Engineer</span>{" "}
-            based in Vietnam.
+            <span className="u-text-primary">Full-stack Developer</span> based
+            in Vietnam.
           </h1>
           <div className="flex">
             <div className="u-pill">truonggiang.axyl@gmail.com</div>
