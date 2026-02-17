@@ -15,17 +15,17 @@ export default function Home() {
         style={{ opacity: 0 }}
       >
         <div className="u-hero">
-          <div className="u-hero-title u-text-indent-hero">
+          <h1 className="u-hero-title u-text-indent-hero">
             My name is Truong Giang. I'm a{" "}
             <span className="u-text-primary">Versatile Software Engineer</span>{" "}
             based in Vietnam.
-          </div>
+          </h1>
           <div className="flex">
             <div className="u-pill">truonggiang.axyl@gmail.com</div>
           </div>
         </div>
 
-        <div className="u-bottom mt-auto">
+        <div className="u-bottom u-project-card-container mt-auto">
           <div className="u-bottom-content">
             <div className="font-medium text-[1.25em] leading-[1.36]">
               Latest Project

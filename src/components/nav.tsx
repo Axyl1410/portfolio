@@ -13,7 +13,7 @@ interface NavLink {
 
 const NAV_LABEL_CLASS = "text-(--color-gray) text-[0.725em]";
 const NAV_VALUE_CLASS =
-  "font-medium text-[0.8725em] uppercase leading-[1.36] text-(--color-text)";
+  "font-medium sm:text-[0.8725em] text-[0.75em] uppercase leading-[1.36] text-(--color-text)";
 
 const ROUTES: NavLink[] = [
   { label: "index", url: "/" },
