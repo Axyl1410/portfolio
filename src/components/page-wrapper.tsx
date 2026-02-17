@@ -5,8 +5,6 @@ import { usePathname } from "next/navigation";
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap-client";
 
-gsap.registerPlugin(useGSAP);
-
 const PageWrapper = ({ children }: { children: React.ReactNode }) => {
   const container = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
