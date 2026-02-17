@@ -26,7 +26,9 @@ const PageWrapper = ({ children }: { children: React.ReactNode }) => {
     <>
       <ReactLenis root />
       <div className="bg-white">
-        <div ref={container}>{children}</div>
+        <div ref={container} style={{ opacity: 0 }}>
+          {children}
+        </div>
       </div>
     </>
   );

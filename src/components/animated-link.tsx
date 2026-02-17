@@ -4,6 +4,7 @@ import Link, { type LinkProps } from "next/link";
 import type { MouseEvent, ReactNode } from "react";
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap-client";
+import { cn } from "@/lib/utils";
 
 interface AnimatedLinkProps extends LinkProps {
   children: ReactNode;
@@ -55,14 +56,10 @@ export const AnimatedLink = ({
     );
   });
 
-  const combinedClassName = ["relative inline-block", className]
-    .filter(Boolean)
-    .join(" ");
-
   return (
     <Link
       {...linkProps}
-      className={combinedClassName}
+      className={cn("relative inline-block", className)}
       onClick={onClick}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}

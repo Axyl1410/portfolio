@@ -1,39 +1,52 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Colors - RGB Base */
   --color-dark-rgb: 3, 4, 1;
-  --color-dark: rgba(var(--color-dark-rgb), 1);
   --color-light-rgb: 255, 255, 255;
-  --color-light: rgba(var(--color-light-rgb), 1);
-  --color-white-rgb: 255, 255, 255;
-  --color-white: rgba(var(--color-white-rgb), 1);
   --color-black-rgb: 0, 0, 0;
+
+  /* Colors - Semantic */
+  --color-dark: rgba(var(--color-dark-rgb), 1);
+  --color-light: rgba(var(--color-light-rgb), 1);
+  --color-white: var(--color-light); /* Alias for light */
   --color-black: rgba(var(--color-black-rgb), 1);
   --color-primary: #ff2f00;
   --color-gray: #4f4f4f;
   --color-lightgray: #e0e0e0;
+
+  /* Colors - UI */
+  --background: var(--color-light);
+  --foreground: var(--color-dark);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
   --color-border: var(--color-gray);
-  --color-border-light: rgba(var(--color-light-rgb), 1);
-  --color-text: rgba(var(--color-dark-rgb), 1);
-  --color-text-light: rgba(var(--color-light-rgb), 1);
+  --color-border-light: var(--color-light);
+  --color-text: var(--color-dark);
+  --color-text-light: var(--color-light);
   --color-alert-error: var(--color-primary);
   --color-alert-success: #46d054;
-  --section-padding: var(--title-size);
-  --container-padding: var(--col-gap);
+
+  /* Typography */
+  --title-size: clamp(5em, 7.5vw, 7.5em);
+  --font-pp-neue-montreal: "PP Neue Montreal", sans-serif;
+
+  /* Spacing */
   --col-gap: calc(var(--title-size) * 0.2);
   --row-gap: calc(var(--title-size) * 0.2);
   --gap: var(--col-gap);
-  --title-size: clamp(5em, 7.5vw, 7.5em);
-  --columns: 4;
-  --nav-col-width: 13em;
+  --section-padding: var(--title-size);
+  --container-padding: var(--col-gap);
+
+  /* Layout */
+  --columns: 4; /* Grid columns for nav */
+  --nav-col-width: 13em; /* Max width for nav items */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-pp-neue-montreal: "PP Neue Montreal", sans-serif;
+  --font-pp-neue-montreal: var(--font-pp-neue-montreal);
 }
 
 body {
