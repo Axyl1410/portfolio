@@ -1,0 +1,64 @@
+/**
+ * Responsive Styles
+ * Media queries for different screen sizes
+ */
+
+@layer utilities {
+  /* Tablet and below (860px) */
+  @media screen and (max-width: 860px) {
+    .u-meta-hidden {
+      display: block;
+    }
+
+    .u-nav-item:nth-child(3),
+    .u-nav-item:nth-child(4) {
+      display: none;
+    }
+
+    .u-loader-image {
+      /* Sizing override for mobile */
+      width: calc(var(--title-size) * 2.25);
+
+      /* Positioning override for mobile */
+      top: 100%;
+      right: 100%;
+      transform: translate(
+          calc(100% + var(--col-gap)),
+          calc(-100% - var(--row-gap))
+        )
+        scale(1) rotate(0.001deg);
+    }
+
+    .u-project-card-container {
+      display: none;
+    }
+  }
+
+  /* Mobile (540px) */
+  @media screen and (max-width: 540px) {
+    nav.u-gap {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0;
+      align-items: flex-start;
+    }
+
+    nav.u-gap .u-nav-item {
+      width: 100%;
+      max-width: none;
+    }
+
+    .u-loader-image {
+      width: 50vw;
+    }
+
+    h1,
+    h2 {
+      font-size: calc((100vw - (var(--col-gap) * 2)) * 0.078) !important;
+    }
+
+    .u-pill {
+      font-size: 1em;
+    }
+  }
+}

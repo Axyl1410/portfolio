@@ -1,0 +1,39 @@
+/**
+ * Intro Loader Component
+ * Home page intro loader animation styles
+ */
+
+@layer utilities {
+  /* Intro loader image wrapper */
+  .u-loader-image {
+    /* Sizing */
+    width: calc(var(--title-size) * 3.25);
+
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+
+    /* Positioning */
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    transform: translate(
+        calc(var(--col-gap) * -1),
+        calc((var(--row-gap) * 3) + 0.725em + 0.3em + ((0.85em * 2) * 1.36))
+      )
+      scale(1) rotate(0.001deg) translateZ(0);
+    z-index: 10;
+
+    /* Performance */
+    will-change: transform;
+  }
+
+  /* Intro loader image container */
+  .u-loader-image-inner {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+  }
+}

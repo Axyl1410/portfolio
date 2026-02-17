@@ -1,0 +1,17 @@
+/**
+ * Navigation Component
+ * Navigation-specific styles
+ */
+
+@layer utilities {
+  .u-nav-item {
+    width: calc(
+      (99.99% / var(--columns)) -
+      (var(--gap) * ((var(--columns) - 1) / var(--columns)))
+    );
+    max-width: var(--nav-col-width);
+    gap: 0.3em 0;
+    display: flex;
+    flex-direction: column;
+  }
+}

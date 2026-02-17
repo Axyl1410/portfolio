@@ -13,7 +13,7 @@ interface HomeIntroLoaderProps {
 
 export default function HomeIntroLoader({
   contentRef,
-  imageSrc = "/idk.jpg",
+  imageSrc = "/images/idk.jpg",
   imageAlt = "Loading image",
 }: HomeIntroLoaderProps) {
   const loaderRef = useRef<HTMLDivElement>(null);
@@ -136,7 +136,7 @@ export default function HomeIntroLoader({
 
   return (
     <div className="u-loader-image" ref={loaderRef}>
-      <div className="u-meta u-meta-image text-left" ref={textRef}>
+      <div className="u-meta u-meta-hidden text-left" ref={textRef}>
         Use menu to explore
       </div>
 

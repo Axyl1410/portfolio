@@ -1,0 +1,32 @@
+/**
+ * Layout Utilities
+ * Container, gap, and positioning utilities
+ */
+
+@layer utilities {
+  .u-container {
+    margin: 0 auto;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+    max-width: 100vw;
+  }
+
+  /* Global gap utility driven by design tokens */
+  .u-gap {
+    gap: var(--row-gap) var(--gap);
+  }
+
+  .u-bottom {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: var(--row-gap);
+  }
+
+  .u-bottom-content {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--row-gap) * 0.8);
+  }
+}

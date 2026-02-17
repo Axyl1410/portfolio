@@ -1,0 +1,55 @@
+/**
+ * Base Styles
+ * Global resets, body styles, and browser-specific adjustments
+ */
+
+@layer base {
+  /* Hide scrollbars (keep scroll). Include Lenis containers too. */
+  :where(html, body, .lenis, .lenis *) {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/legacy Edge */
+  }
+
+  :where(html, body, .lenis, .lenis *)::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+    width: 0;
+    height: 0;
+  }
+
+  body {
+    color: var(--foreground);
+    font-family: var(--font-pp-neue-montreal);
+  }
+
+  /* Text selection (copy highlight) */
+  ::selection {
+    background: var(--color-primary);
+    color: var(--color-light);
+  }
+
+  ::-moz-selection {
+    background: var(--color-primary);
+    color: var(--color-light);
+  }
+
+  /* View transitions */
+  ::view-transition-group(root) {
+    z-index: auto !important;
+  }
+
+  ::view-transition-image-pair(root) {
+    isolation: isolate;
+    will-change: transform, opacity, scale;
+    z-index: 1;
+  }
+
+  ::view-transition-new(root) {
+    z-index: 2;
+    animation: none !important;
+  }
+
+  ::view-transition-old(root) {
+    z-index: 1;
+    animation: none !important;
+  }
+}

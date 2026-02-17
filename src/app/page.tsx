@@ -36,7 +36,7 @@ export default function Home() {
                   alt="Project 1"
                   draggable={false}
                   fill
-                  src="/test.webp"
+                  src="/images/test.webp"
                 />
               </div>
               <div className="u-bottom-content">
