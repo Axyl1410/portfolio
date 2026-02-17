@@ -1,9 +1,19 @@
+"use client";
+
 import Image from "next/image";
+import { useRef } from "react";
+import HomeIntroLoader from "@/components/home-intro-loader";
 
 export default function Home() {
+  const contentRef = useRef<HTMLDivElement>(null);
+
   return (
     <>
-      <div className="flex flex-1 flex-col">
+      <div
+        className="flex flex-1 flex-col"
+        ref={contentRef}
+        style={{ opacity: 0 }}
+      >
         <div className="u-hero">
           <div className="u-hero-title u-text-indent-hero">
             My name is Truong Giang. I'm a{" "}
@@ -45,15 +55,7 @@ export default function Home() {
           <div className="u-meta">Use menu to explore</div>
         </div>
       </div>
-      <div className="u-loader-image">
-        <Image
-          alt="Loading image"
-          className="object-cover"
-          draggable={false}
-          fill
-          src="/idk.jpg"
-        />
-      </div>
+      <HomeIntroLoader contentRef={contentRef} />
     </>
   );
 }
