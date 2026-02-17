@@ -72,8 +72,8 @@ const Nav = () => {
   const timeInVN = formatTimeInVN(now);
 
   return (
-    <nav className="nav-layout container relative mx-auto flex flex-wrap items-center justify-between py-[calc(var(--row-gap)-0.15em)]">
-      <div className="nav-item">
+    <nav className="u-gap relative flex w-full flex-wrap items-center justify-between py-[calc(var(--row-gap)-0.15em)]">
+      <div className="u-nav-item">
         <div className="flex w-full flex-wrap">
           <span className={NAV_LABEL_CLASS}>Name</span>
         </div>
@@ -91,7 +91,7 @@ const Nav = () => {
         </div>
       </div>
 
-      <div className="nav-item">
+      <div className="u-nav-item">
         <div className="flex w-full flex-wrap">
           <span className={NAV_LABEL_CLASS}>Status</span>
         </div>
@@ -102,7 +102,7 @@ const Nav = () => {
         </div>
       </div>
 
-      <div className="nav-item">
+      <div className="u-nav-item">
         <div className="flex w-full flex-wrap">
           <span className={NAV_LABEL_CLASS}>Sitemap</span>
         </div>
@@ -120,7 +120,7 @@ const Nav = () => {
         </div>
       </div>
 
-      <div className="nav-item">
+      <div className="u-nav-item">
         <div className="flex w-full flex-wrap">
           <span className={NAV_LABEL_CLASS}>Let's connect</span>
         </div>
@@ -132,7 +132,7 @@ const Nav = () => {
           ))}
         </div>
       </div>
-      <div className="pointer-events-none absolute right-(--container-padding) bottom-0 left-(--container-padding) h-px origin-left bg-(--color-border)" />
+      <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-px origin-left bg-(--color-border)" />
     </nav>
   );
 };

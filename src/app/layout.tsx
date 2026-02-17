@@ -25,8 +25,10 @@ export default function RootLayout({
         </head>
         <body className="antialiased">
           <PageWrapper>
-            <Nav />
-            {children}
+            <div className="u-container u-gap flex min-h-screen flex-col">
+              <Nav />
+              <main className="flex flex-1 flex-col">{children}</main>
+            </div>
           </PageWrapper>
         </body>
       </html>
