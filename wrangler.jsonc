@@ -26,12 +26,44 @@
       // Self-reference service binding, the service name must match the worker name
       // see https://opennext.js.org/cloudflare/caching
       "binding": "WORKER_SELF_REFERENCE",
-      "service": "view-transition"
+      "service": "portfolio"
     }
   ],
   "observability": {
     "enabled": true
-  }
+  },
+
+  // R2 incremental cache
+  "r2_buckets": [
+    {
+      "binding": "NEXT_INC_CACHE_R2_BUCKET",
+      "bucket_name": "portfolio-inc-cache-r2"
+    }
+  ], // DO Queue
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "NEXT_CACHE_DO_QUEUE",
+        "class_name": "DOQueueHandler"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["DOQueueHandler"]
+    }
+  ],
+
+  // D1 Tag Cache (Next mode)
+  // This is only required if you use On-demand revalidation
+  "d1_databases": [
+    {
+      "binding": "NEXT_TAG_CACHE_D1",
+      "database_id": "d17c6afc-ccc2-4df9-80e6-2fbee5a8294e",
+      "database_name": "portfolio-tag-cache-d1"
+    }
+  ]
   /**
    * Smart Placement
    * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
