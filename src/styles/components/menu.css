@@ -1,0 +1,40 @@
+.u-menu {
+  margin-right: var(--container-padding);
+  margin-bottom: var(--row-gap);
+  padding-inline: 0.4em;
+  padding-block: 0.2em;
+}
+
+/* Chỉ hiển thị menu khi viewport dưới 860px */
+@media screen and (min-width: 860px) {
+  .u-menu {
+    display: none;
+  }
+
+  .u-menu-overlay {
+    display: none !important;
+  }
+}
+
+.u-menu-overlay {
+  will-change: clip-path;
+}
+
+.u-menu-overlay nav a {
+  position: relative;
+}
+
+.u-menu-overlay nav a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-primary);
+  transition: width 0.3s ease;
+}
+
+.u-menu-overlay nav a:hover::after {
+  width: 100%;
+}

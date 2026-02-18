@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ViewTransitions } from "next-view-transitions";
 import "./globals.css";
+import Menu from "@/components/menu";
 import Nav from "@/components/nav";
 import PageWrapper from "@/components/page-wrapper";
 
@@ -50,6 +51,7 @@ export default function RootLayout({
             <div className="u-container u-gap flex min-h-screen flex-col">
               <Nav />
               <main className="flex flex-1 flex-col">{children}</main>
+              <Menu />
             </div>
           </PageWrapper>
         </body>

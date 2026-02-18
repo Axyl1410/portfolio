@@ -39,6 +39,9 @@ export default function HomeIntroLoader({
       if (textEl) {
         gsap.set(textEl, { opacity: 1 });
       }
+
+      document.body.style.background = "black";
+
       return;
     }
 

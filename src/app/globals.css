@@ -24,6 +24,7 @@
 @import "../styles/components/hero.css";
 @import "../styles/components/loader.css";
 @import "../styles/components/project-card.css";
+@import "../styles/components/menu.css";
 
 /* Responsive - Media queries */
 @import "../styles/responsive.css";
