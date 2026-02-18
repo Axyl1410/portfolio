@@ -47,13 +47,13 @@ function createLoaderTimeline(
 ) {
   const tl = gsap.timeline();
 
-  tl.to(loaderEl, { duration: 0.5 })
+  tl.to(loaderEl, { duration: 0.25 })
     .to(loaderEl, {
       clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
       duration: 1,
       ease: "power3.inOut",
     })
-    .to(loaderEl, { duration: 1 })
+    .to(loaderEl, { duration: 0.5 })
     .to(loaderEl, {
       x: positions.cssOffsetX,
       y: positions.cssOffsetY,
@@ -72,7 +72,7 @@ function createLoaderTimeline(
     revealTargets,
     {
       opacity: 1,
-      duration: 0.8,
+      duration: 0.6,
       ease: "power2.out",
     },
     "reveal"
@@ -83,7 +83,7 @@ function createLoaderTimeline(
       textEl,
       {
         opacity: 1,
-        duration: 0.8,
+        duration: 0.6,
         ease: "power2.out",
       },
       "reveal"
@@ -154,7 +154,9 @@ export default function HomeIntroLoader({
           alt={imageAlt}
           className="object-cover"
           draggable={false}
+          fetchPriority="high"
           fill
+          priority
           src={imageSrc}
         />
       </div>
