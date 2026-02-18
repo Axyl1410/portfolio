@@ -16,6 +16,7 @@ import {
   TIMEZONE_FORMAT,
 } from "@/lib/nav-shared";
 import { useNavData } from "@/lib/use-nav-data";
+import { cn } from "@/lib/utils";
 import { NavItem } from "./nav-item";
 
 interface NavSectionsProps {
@@ -41,7 +42,7 @@ export function NameSection({ variant = "default" }: NavSectionsProps) {
     variant === "light" ? NAV_VALUE_CLASS_LIGHT : NAV_VALUE_CLASS;
 
   return (
-    <NavItem label="Name" valueClassName={valueClass}>
+    <NavItem label="Name" valueClassName={cn(valueClass, "flex flex-col")}>
       <span className={valueClass} style={{ display: "inline-block" }}>
         <AnimatedLink
           href="/"
@@ -49,11 +50,11 @@ export function NameSection({ variant = "default" }: NavSectionsProps) {
         >
           {BRAND_NAME}
         </AnimatedLink>
-        <span>, {currentYear}</span>
+        <span>, {currentYear} </span>
       </span>
-      <div className={valueClass}>
+      <span className={valueClass}>
         {TIMEZONE_FORMAT.replace("{time}", timeInVN)}
-      </div>
+      </span>
     </NavItem>
   );
 }
