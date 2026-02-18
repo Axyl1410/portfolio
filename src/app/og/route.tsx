@@ -2,6 +2,10 @@ import { ImageResponse } from "next/og";
 
 export const revalidate = false;
 
+function getCurrentYear() {
+  return new Date().getFullYear();
+}
+
 export function GET() {
   return new ImageResponse(<OGImage />, {
     width: 1200,
@@ -114,7 +118,7 @@ function OGImage() {
         >
           <div style={{ display: "flex" }}>Based in Vietnam</div>
           <div style={{ display: "flex", color: "#333" }}>•</div>
-          <div style={{ display: "flex" }}>Portfolio 2026</div>
+          <div style={{ display: "flex" }}>Portfolio {getCurrentYear()}</div>
         </div>
 
         {/* Email Badge */}
