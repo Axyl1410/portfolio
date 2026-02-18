@@ -42,14 +42,14 @@ export function NameSection({ variant = "default" }: NavSectionsProps) {
 
   return (
     <NavItem label="Name" valueClassName={valueClass}>
-      <span className={valueClass}>
+      <span className={valueClass} style={{ display: "inline-block" }}>
         <AnimatedLink
           href="/"
           onClick={createNavClickHandler(pathname, router, "/")}
         >
           {BRAND_NAME}
         </AnimatedLink>
-        , {currentYear}
+        <span>, {currentYear}</span>
       </span>
       <div className={valueClass}>
         {TIMEZONE_FORMAT.replace("{time}", timeInVN)}

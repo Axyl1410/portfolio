@@ -9,9 +9,9 @@ export interface NavLink {
 
 export const NAV_LABEL_CLASS = "text-(--color-gray) text-[0.725em]";
 export const NAV_VALUE_CLASS =
-  "font-medium sm:text-[0.8725em] text-[0.75em] uppercase leading-[1.36] text-(--color-text)";
+  "font-medium text-[0.8725em] uppercase leading-[1.36] text-(--color-text)";
 export const NAV_VALUE_CLASS_LIGHT =
-  "font-medium sm:text-[0.8725em] text-[0.75em] uppercase leading-[1.36] text-white";
+  "font-medium text-[0.8725em] uppercase leading-[1.36] text-white";
 
 export const ROUTES: NavLink[] = [
   { label: "index", url: "/" },
