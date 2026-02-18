@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { ViewTransitions } from "next-view-transitions";
 import "./globals.css";
-import Menu from "@/components/menu";
-import Nav from "@/components/nav";
-import PageWrapper from "@/components/page-wrapper";
+import PageWrapper from "@/components/layout/page-wrapper";
+import Menu from "@/components/menu/menu";
+import Nav from "@/components/nav/nav";
 
 export const metadata: Metadata = {
   title: "Truong Giang — Freelance Software Engineer",

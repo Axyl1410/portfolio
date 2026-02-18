@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import HomeIntroLoader from "@/components/home-intro-loader";
+import HomeIntroLoader from "@/components/loader/home-intro-loader";
 
 export default function Home() {
   const contentRef = useRef<HTMLDivElement>(null);

@@ -3,8 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useTransitionRouter } from "next-view-transitions";
 import type { ReactNode } from "react";
-import { AnimatedLink } from "@/components/animated-link";
-import { NavItem } from "@/components/nav-item";
+import { AnimatedLink } from "@/components/ui/animated-link";
 import {
   BRAND_NAME,
   createNavClickHandler,
@@ -17,6 +16,7 @@ import {
   TIMEZONE_FORMAT,
 } from "@/lib/nav-shared";
 import { useNavData } from "@/lib/use-nav-data";
+import { NavItem } from "./nav-item";
 
 interface NavSectionsProps {
   variant?: "default" | "light";

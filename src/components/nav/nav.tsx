@@ -5,7 +5,7 @@ import {
   SitemapSection,
   SocialsSection,
   StatusSection,
-} from "@/components/nav-sections";
+} from "./nav-sections";
 
 export default function Nav() {
   return (

@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
-import { NameSection, StatusSection } from "@/components/nav-sections";
+import { NameSection, StatusSection } from "@/components/nav/nav-sections";
 import { gsap, useGSAP } from "@/lib/gsap-client";
 import { INTRO_LOADER_SESSION_KEY } from "@/lib/intro-loader";
 
