@@ -1,6 +1,10 @@
-import { ImageResponse } from "next/og";
+import { ImageResponse } from "@takumi-rs/image-response";
 
 export const revalidate = false;
+
+function getCurrentYear() {
+  return new Date().getFullYear();
+}
 
 export function GET() {
   return new ImageResponse(<OGImage />, {
@@ -16,118 +20,55 @@ function OGImage() {
   return (
     <div
       style={{
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-        justifyContent: "space-between",
         backgroundColor: "#030401",
-        padding: "80px",
-        fontFamily: "system-ui, -apple-system, sans-serif",
       }}
+      tw="w-full h-full flex flex-col items-start justify-between p-20"
     >
       {/* Top Section - Main Content */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "32px",
-        }}
-      >
+      <div tw="flex flex-col gap-8">
         {/* Name with accent */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "16px",
-          }}
-        >
+        <div tw="flex flex-col gap-4">
           <div
-            style={{
-              display: "flex",
-              fontSize: "72px",
-              fontWeight: "500",
-              color: "#fff",
-              lineHeight: "1.1",
-              letterSpacing: "-0.02em",
-            }}
+            style={{ letterSpacing: "-0.02em" }}
+            tw="flex text-[72px] font-medium text-white leading-tight"
           >
             Truong Giang
           </div>
           <div
-            style={{
-              display: "flex",
-              width: "120px",
-              height: "4px",
-              backgroundColor: "#ff2f00",
-              borderRadius: "2px",
-            }}
+            style={{ backgroundColor: "#ff2f00" }}
+            tw="flex w-[120px] h-1 rounded-sm"
           />
         </div>
 
         {/* Title */}
-        <div
-          style={{
-            display: "flex",
-            fontSize: "48px",
-            fontWeight: "500",
-            color: "#fff",
-            lineHeight: "1.2",
-            maxWidth: "900px",
-          }}
-        >
+        <div tw="flex text-5xl font-medium text-white leading-tight max-w-[900px]">
           <span style={{ color: "#ff2f00" }}>Full-stack</span>
-          <span style={{ marginLeft: "12px" }}>Developer</span>
+          <span tw="ml-3">Developer</span>
         </div>
 
         {/* Description */}
         <div
-          style={{
-            display: "flex",
-            fontSize: "28px",
-            color: "#b4b4b4",
-            lineHeight: "1.4",
-            maxWidth: "800px",
-          }}
+          style={{ color: "#b4b4b4" }}
+          tw="flex text-3xl leading-relaxed max-w-[800px]"
         >
           Creative developer bridging the gap between design and technology
         </div>
       </div>
 
       {/* Bottom Section - Location & Email */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          width: "100%",
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            gap: "24px",
-            fontSize: "20px",
-            color: "#666",
-          }}
-        >
-          <div style={{ display: "flex" }}>Based in Vietnam</div>
-          <div style={{ display: "flex", color: "#333" }}>•</div>
-          <div style={{ display: "flex" }}>Portfolio 2025</div>
+      <div tw="flex justify-between w-full items-center">
+        <div style={{ color: "#666" }} tw="flex gap-6 text-xl">
+          <div tw="flex">Based in Vietnam</div>
+          <div style={{ color: "#333" }} tw="flex">
+            •
+          </div>
+          <div tw="flex">Portfolio {getCurrentYear()}</div>
         </div>
 
         {/* Email Badge */}
         <div
-          style={{
-            display: "flex",
-            padding: "12px 24px",
-            border: "1px solid #333",
-            borderRadius: "999px",
-            fontSize: "18px",
-            color: "#fff",
-            fontWeight: "500",
-          }}
+          style={{ border: "1px solid #333" }}
+          tw="flex px-6 py-3 rounded-full text-lg text-white font-medium"
         >
           truonggiang.axyl@gmail.com
         </div>
