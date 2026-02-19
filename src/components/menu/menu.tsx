@@ -1,20 +1,15 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { useTransitionRouter } from "next-view-transitions";
 import { useRef, useState } from "react";
-import { NameSection, StatusSection } from "@/components/nav/nav-sections";
+import {
+  type MenuLinkClickHandler,
+  MenuOverlayContent,
+} from "@/components/menu/menu-overlay-content";
 import { gsap, useGSAP } from "@/lib/gsap-client";
 import { INTRO_LOADER_SESSION_KEY } from "@/lib/intro-loader";
-
-function MenuOverlayContent() {
-  return (
-    <nav className="u-gap relative flex w-full flex-wrap items-center justify-between py-[calc(var(--row-gap)-0.15em)]">
-      <NameSection variant="light" />
-      <StatusSection variant="light" />
-      <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-px origin-left bg-(--color-border)" />
-    </nav>
-  );
-}
+import { pageAnimation } from "@/utils/page-animation";
 
 export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +19,20 @@ export default function Menu() {
   const closeTextRef = useRef<HTMLSpanElement>(null);
   const tl = useRef<gsap.core.Timeline | null>(null);
   const pathname = usePathname();
+  const router = useTransitionRouter();
+  const pendingUrlRef = useRef<string | null>(null);
+
+  const handleLinkClick: MenuLinkClickHandler = (event, url) => {
+    event.preventDefault();
+
+    if (pathname === url) {
+      setIsOpen(false);
+      return;
+    }
+
+    pendingUrlRef.current = url;
+    setIsOpen(false);
+  };
 
   // Animation for menu button fade-in (same as page)
   useGSAP(
@@ -60,12 +69,23 @@ export default function Menu() {
     }
 
     // All links inside the overlay menu
-    const links = overlay.querySelectorAll("a");
+    // const links = overlay.querySelectorAll("a");
 
     tl.current = gsap.timeline({
       paused: true,
       onReverseComplete: () => {
         gsap.set(overlay, { display: "none", opacity: 0 });
+
+        const target = pendingUrlRef.current;
+        if (target) {
+          pendingUrlRef.current = null;
+
+          if (target.startsWith("http") || target.startsWith("mailto:")) {
+            window.location.href = target;
+          } else {
+            router.push(target, { onTransitionReady: pageAnimation });
+          }
+        }
       },
     });
 
@@ -76,7 +96,7 @@ export default function Menu() {
         { clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" },
         {
           clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-          duration: 0.8,
+          duration: 1,
           ease: "power3.inOut",
         },
         0
@@ -92,17 +112,17 @@ export default function Menu() {
         0.1
       )
       // Staggered fade / slide for individual links
-      .from(
-        links,
-        {
-          opacity: 0,
-          y: 8,
-          duration: 0.4,
-          ease: "power2.out",
-          stagger: 0.05,
-        },
-        0.2
-      )
+      // .from(
+      //   links,
+      //   {
+      //     opacity: 0,
+      //     y: 8,
+      //     duration: 0.4,
+      //     ease: "power2.out",
+      //     stagger: 0.05,
+      //   },
+      //   0.2
+      // )
       .to(menuText, { y: "-100%", duration: 0.5, ease: "power3.inOut" }, 0)
       .to(closeText, { y: "0%", duration: 0.5, ease: "power3.inOut" }, 0);
   }, []);
@@ -147,7 +167,7 @@ export default function Menu() {
         className="u-menu-overlay u-container fixed inset-0 z-40 hidden bg-black"
         ref={menuOverlayRef}
       >
-        <MenuOverlayContent />
+        <MenuOverlayContent onLinkClick={handleLinkClick} />
       </div>
     </>
   );

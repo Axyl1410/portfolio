@@ -8,6 +8,7 @@ export interface NavLink {
 }
 
 export const NAV_LABEL_CLASS = "text-(--color-gray) text-[0.725em]";
+export const NAV_LABEL_CLASS_LIGHT = "text-[#A0A0A0] text-[0.725em]";
 export const NAV_VALUE_CLASS =
   "font-medium text-[0.8725em] uppercase leading-[1.36] text-(--color-text)";
 export const NAV_VALUE_CLASS_LIGHT =
@@ -23,10 +24,10 @@ export const ROUTES: NavLink[] = [
 
 export const SOCIALS: NavLink[] = [
   { label: "Resume", url: "/resume" },
-  { label: "Facebook", url: "https://facebook.com" },
-  { label: "Instagram", url: "https://instagram.com" },
-  { label: "Email", url: "mailto:you@example.com" },
-  { label: "Github", url: "https://github.com" },
+  { label: "Facebook", url: "https://facebook.com/alexsandrsenaviev" },
+  { label: "Instagram", url: "https://instagram.com/axyl1410" },
+  { label: "Email", url: "mailto:truonggiang.axyl@gmail.com" },
+  { label: "Github", url: "https://github.com/axyl1410" },
 ];
 
 // Constants for nav content

@@ -1,5 +1,3 @@
-"use client";
-
 import Link, { type LinkProps } from "next/link";
 import type { MouseEvent, ReactNode } from "react";
 import { useRef } from "react";

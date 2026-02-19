@@ -42,6 +42,7 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <head>
           <link
+            fetchPriority="high"
             href="https://fonts.cdnfonts.com/css/pp-neue-montreal"
             rel="stylesheet"
           />

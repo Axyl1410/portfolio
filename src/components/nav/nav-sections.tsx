@@ -1,5 +1,3 @@
-"use client";
-
 import { usePathname } from "next/navigation";
 import { useTransitionRouter } from "next-view-transitions";
 import type { ReactNode } from "react";
@@ -42,7 +40,11 @@ export function NameSection({ variant = "default" }: NavSectionsProps) {
     variant === "light" ? NAV_VALUE_CLASS_LIGHT : NAV_VALUE_CLASS;
 
   return (
-    <NavItem label="Name" valueClassName={cn(valueClass, "flex flex-col")}>
+    <NavItem
+      label="Name"
+      valueClassName={cn(valueClass, "flex flex-col")}
+      variant={variant}
+    >
       <span className={valueClass} style={{ display: "inline-block" }}>
         <AnimatedLink
           href="/"
@@ -64,8 +66,8 @@ export function StatusSection({ variant = "default" }: NavSectionsProps) {
     variant === "light" ? NAV_VALUE_CLASS_LIGHT : NAV_VALUE_CLASS;
 
   return (
-    <NavItem label="Status" valueClassName={valueClass}>
-      <div className={valueClass}>{STATUS_TEXT}</div>
+    <NavItem label="Status" valueClassName={valueClass} variant={variant}>
+      <div className={cn(valueClass, "line-clamp-2")}>{STATUS_TEXT}</div>
     </NavItem>
   );
 }
@@ -77,7 +79,7 @@ export function SitemapSection({ variant = "default" }: NavSectionsProps) {
     variant === "light" ? NAV_VALUE_CLASS_LIGHT : NAV_VALUE_CLASS;
 
   return (
-    <NavItem label="Sitemap" valueClassName={valueClass}>
+    <NavItem label="Sitemap" valueClassName={valueClass} variant={variant}>
       {renderCommaSeparated(ROUTES, (route) => (
         <span className={valueClass}>
           <AnimatedLink
@@ -97,7 +99,11 @@ export function SocialsSection({ variant = "default" }: NavSectionsProps) {
     variant === "light" ? NAV_VALUE_CLASS_LIGHT : NAV_VALUE_CLASS;
 
   return (
-    <NavItem label="Let's connect" valueClassName={valueClass}>
+    <NavItem
+      label="Let's connect"
+      valueClassName={valueClass}
+      variant={variant}
+    >
       {renderCommaSeparated(SOCIALS, (social) => (
         <span className={valueClass}>
           <AnimatedLink href={social.url}>{social.label}</AnimatedLink>
