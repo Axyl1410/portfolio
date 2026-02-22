@@ -9,17 +9,19 @@ import {
 } from "@/components/menu/menu-overlay-content";
 import { gsap, useGSAP } from "@/lib/gsap-client";
 import { INTRO_LOADER_SESSION_KEY } from "@/lib/intro-loader";
-import { pageAnimation } from "@/utils/page-animation";
+import { pageAnimationFromMenu } from "@/utils/page-animation";
 
 export default function Menu() {
+  const pathname = usePathname();
+  const router = useTransitionRouter();
   const [isOpen, setIsOpen] = useState(false);
+
   const menuOverlayRef = useRef<HTMLDivElement>(null);
+  const whiteOverlayRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuTextRef = useRef<HTMLSpanElement>(null);
   const closeTextRef = useRef<HTMLSpanElement>(null);
-  const tl = useRef<gsap.core.Timeline | null>(null);
-  const pathname = usePathname();
-  const router = useTransitionRouter();
+  const overlayTlRef = useRef<gsap.core.Timeline | null>(null);
   const pendingUrlRef = useRef<string | null>(null);
 
   const handleLinkClick: MenuLinkClickHandler = (event, url) => {
@@ -30,11 +32,44 @@ export default function Menu() {
       return;
     }
 
+    const white = whiteOverlayRef.current;
+    if (!white) {
+      return;
+    }
+
     pendingUrlRef.current = url;
-    setIsOpen(false);
+    gsap.set(white, {
+      display: "block",
+      pointerEvents: "auto",
+      clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+    });
+
+    gsap.to(white, {
+      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+      duration: 1,
+      ease: "power3.inOut",
+      onComplete: () => {
+        const menu = menuOverlayRef.current;
+        if (menu) {
+          gsap.set(menu, { display: "none", opacity: 0 });
+        }
+
+        const target = pendingUrlRef.current;
+        pendingUrlRef.current = null;
+        setIsOpen(false);
+
+        if (!target) {
+          return;
+        }
+        if (target.startsWith("http") || target.startsWith("mailto:")) {
+          window.location.href = target;
+        } else {
+          router.push(target, { onTransitionReady: pageAnimationFromMenu });
+        }
+      },
+    });
   };
 
-  // Animation for menu button fade-in (same as page)
   useGSAP(
     () => {
       const button = buttonRef.current;
@@ -45,14 +80,11 @@ export default function Menu() {
       const isHome = pathname === "/";
       const loaderPlayed = sessionStorage.getItem(INTRO_LOADER_SESSION_KEY);
 
-      // On home with loader not yet played: keep hidden,
-      // the loader in home-intro-loader.tsx handles revealing it
       if (isHome && !loaderPlayed) {
         gsap.set(button, { opacity: 0 });
         return;
       }
 
-      // Normal page transition fade-in (same timing as page)
       gsap.fromTo(button, { opacity: 0 }, { opacity: 1, delay: 1 });
     },
     { dependencies: [pathname], revertOnUpdate: true }
@@ -63,33 +95,18 @@ export default function Menu() {
     const button = buttonRef.current;
     const menuText = menuTextRef.current;
     const closeText = closeTextRef.current;
-
-    if (!(overlay && button && menuText && closeText)) {
+    const refsReady = overlay && button && menuText && closeText;
+    if (!refsReady) {
       return;
     }
 
-    // All links inside the overlay menu
-    // const links = overlay.querySelectorAll("a");
-
-    tl.current = gsap.timeline({
-      paused: true,
-      onReverseComplete: () => {
-        gsap.set(overlay, { display: "none", opacity: 0 });
-
-        const target = pendingUrlRef.current;
-        if (target) {
-          pendingUrlRef.current = null;
-
-          if (target.startsWith("http") || target.startsWith("mailto:")) {
-            window.location.href = target;
-          } else {
-            router.push(target, { onTransitionReady: pageAnimation });
-          }
-        }
-      },
-    });
-
-    tl.current
+    overlayTlRef.current = gsap
+      .timeline({
+        paused: true,
+        onReverseComplete: () => {
+          gsap.set(overlay, { display: "none", opacity: 0 });
+        },
+      })
       .set(overlay, { display: "block", opacity: 0 })
       .fromTo(
         overlay,
@@ -101,39 +118,33 @@ export default function Menu() {
         },
         0
       )
-      // Fade in the whole overlay slightly after the clipPath begins
-      .to(
-        overlay,
-        {
-          opacity: 1,
-          duration: 0.4,
-          ease: "power2.out",
-        },
-        0.1
-      )
-      // Staggered fade / slide for individual links
-      // .from(
-      //   links,
-      //   {
-      //     opacity: 0,
-      //     y: 8,
-      //     duration: 0.4,
-      //     ease: "power2.out",
-      //     stagger: 0.05,
-      //   },
-      //   0.2
-      // )
+      .to(overlay, { opacity: 1, duration: 0.4, ease: "power2.out" }, 0.1)
       .to(menuText, { y: "-100%", duration: 0.5, ease: "power3.inOut" }, 0)
       .to(closeText, { y: "0%", duration: 0.5, ease: "power3.inOut" }, 0);
   }, []);
 
   useGSAP(() => {
     if (isOpen) {
-      tl.current?.play();
+      overlayTlRef.current?.play();
     } else {
-      tl.current?.reverse();
+      overlayTlRef.current?.reverse();
     }
   }, [isOpen]);
+
+  useGSAP(() => {
+    const white = whiteOverlayRef.current;
+    if (!white) {
+      return;
+    }
+    gsap.set(white, {
+      display: "none",
+      pointerEvents: "none",
+      clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+    });
+  }, [pathname]);
+
+  // Render
+  // ---------------------------------------------------------------------------
 
   return (
     <>
@@ -169,6 +180,13 @@ export default function Menu() {
       >
         <MenuOverlayContent onLinkClick={handleLinkClick} />
       </div>
+
+      <div
+        aria-hidden
+        className="u-menu-nav-overlay pointer-events-none fixed inset-0 z-45 hidden bg-white"
+        ref={whiteOverlayRef}
+        style={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" }}
+      />
     </>
   );
 }

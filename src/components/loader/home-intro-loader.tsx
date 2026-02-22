@@ -125,7 +125,7 @@ function initializeLoader(
 
 export default function HomeIntroLoader({
   contentRef,
-  imageSrc = "/images/idk.jpg",
+  imageSrc = "/images/hero.jpg",
   imageAlt = "Loading image",
 }: HomeIntroLoaderProps) {
   const loaderRef = useRef<HTMLDivElement>(null);

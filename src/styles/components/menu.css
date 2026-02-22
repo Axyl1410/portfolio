@@ -5,15 +5,20 @@
   padding-block: 0.2em;
 }
 
-/* Chỉ hiển thị menu khi viewport dưới 860px */
+/* Only show the menu when viewport is below 860px */
 @media screen and (min-width: 860px) {
   .u-menu {
     display: none;
   }
 
-  .u-menu-overlay {
+  .u-menu-overlay,
+  .u-menu-nav-overlay {
     display: none !important;
   }
+}
+
+.u-menu-nav-overlay {
+  will-change: clip-path;
 }
 
 .u-menu-overlay {
