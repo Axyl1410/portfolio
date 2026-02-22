@@ -183,7 +183,7 @@ export default function Menu() {
 
       <div
         aria-hidden
-        className="u-menu-nav-overlay pointer-events-none fixed inset-0 z-45 hidden bg-white"
+        className="u-menu-nav-overlay pointer-events-none fixed inset-0 z-[55] hidden bg-white"
         ref={whiteOverlayRef}
         style={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" }}
       />

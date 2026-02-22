@@ -44,7 +44,7 @@ export const pageAnimation = () => {
 
 export const pageAnimationFromMenu = () => {
   document.documentElement.animate([{ opacity: 0 }, { opacity: 1 }], {
-    duration: 400,
+    duration: 500,
     easing: "ease-out",
     fill: "forwards",
     pseudoElement: "::view-transition-new(root)",
