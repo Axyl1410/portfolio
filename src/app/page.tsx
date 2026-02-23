@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRef } from "react";
 import HomeIntroLoader from "@/components/loader/home-intro-loader";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -21,7 +22,7 @@ export default function Home() {
             in Vietnam.
           </h1>
           <div className="flex">
-            <div className="u-pill">truonggiang.axyl@gmail.com</div>
+            <Button className="uppercase">truonggiang.axyl@gmail.com</Button>
           </div>
         </div>
 

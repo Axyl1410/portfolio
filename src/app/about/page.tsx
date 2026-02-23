@@ -1,58 +1,26 @@
 "use client";
 
-import { useRef } from "react";
-import { gsap, ScrollTrigger, SplitText, useGSAP } from "@/lib/gsap-client";
+import { sileo } from "sileo";
+import { Button } from "@/components/ui/button";
+import { SplitTextOnScroll } from "@/components/ui/split-text-on-scroll";
 
 const About = () => {
-  const container = useRef<HTMLDivElement>(null);
-
-  useGSAP(
-    () => {
-      const el = container.current;
-      if (!el) {
-        return;
-      }
-
-      const split = new SplitText(el, { type: "chars" });
-      if (!split.chars?.length) {
-        return;
-      }
-
-      const tween = gsap.to(split.chars, {
-        keyframes: [
-          { x: 20, autoAlpha: 0, duration: 0.2, ease: "power2.in" },
-          { x: -20, duration: 0 },
-          { x: 0, autoAlpha: 1, duration: 0.2, ease: "power2.out" },
-        ],
-        stagger: {
-          each: 0.05,
-          from: "random",
-        },
-        paused: true,
-        delay: 2,
-      });
-
-      const st = ScrollTrigger.create({
-        trigger: el,
-        start: "top 85%",
-        onEnter: () => {
-          tween.play();
-        },
-      });
-
-      return () => {
-        st.kill();
-        split.revert();
-      };
-    },
-    { scope: container }
-  );
+  const showToast = () => {
+    sileo.error({
+      title: "Something went wrong",
+      description: "Please try again later.",
+    });
+  };
 
   return (
-    <main className="overflow-hidden bg-black p-10 text-white">
-      <div className="headline font-bold text-6xl uppercase" ref={container}>
+    <main className="overflow-hidden p-10">
+      <SplitTextOnScroll
+        className="headline font-bold text-6xl uppercase"
+        delay={2}
+      >
         Real apps. Real impact.
-      </div>
+      </SplitTextOnScroll>
+      <Button onClick={showToast}>Show toast</Button>
     </main>
   );
 };

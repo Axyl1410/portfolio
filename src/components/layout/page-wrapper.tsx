@@ -3,6 +3,7 @@
 import ReactLenis from "lenis/react";
 import { usePathname } from "next/navigation";
 import { useRef } from "react";
+import { Toaster } from "sileo";
 import { gsap, useGSAP } from "@/lib/gsap-client";
 import { INTRO_LOADER_SESSION_KEY } from "@/lib/intro-loader";
 
@@ -35,6 +36,7 @@ const PageWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <ReactLenis root />
+      <Toaster theme="light" />
       <div className="bg-white">
         <div ref={container} style={{ opacity: 0 }}>
           {children}

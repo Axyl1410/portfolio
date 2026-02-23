@@ -30,7 +30,7 @@ export const AnimatedLink = ({
       { scaleX: 0, transformOrigin: "left" },
       {
         scaleX: 1,
-        duration: 0.3,
+        duration: 0.5,
         ease: "power3.out",
       }
     );
@@ -48,7 +48,7 @@ export const AnimatedLink = ({
       {
         scaleX: 0,
         transformOrigin: "right",
-        duration: 0.3,
+        duration: 0.5,
         ease: "power3.in",
       }
     );
