@@ -2,14 +2,20 @@
 
 import ReactLenis from "lenis/react";
 import { usePathname } from "next/navigation";
-import { useRef } from "react";
-import { Toaster } from "sileo";
+import { useEffect, useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap-client";
 import { INTRO_LOADER_SESSION_KEY } from "@/lib/intro-loader";
 
 const PageWrapper = ({ children }: { children: React.ReactNode }) => {
   const container = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+
+  useEffect(() => {
+    const loaderPlayed = sessionStorage.getItem(INTRO_LOADER_SESSION_KEY);
+    if (loaderPlayed) {
+      document.body.style.background = "black";
+    }
+  }, []);
 
   useGSAP(
     () => {
@@ -36,7 +42,6 @@ const PageWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <ReactLenis root />
-      <Toaster theme="light" />
       <div className="bg-white">
         <div ref={container} style={{ opacity: 0 }}>
           {children}

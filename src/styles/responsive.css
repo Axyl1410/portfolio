@@ -32,6 +32,62 @@
     .u-project-card-container {
       display: none;
     }
+
+    /* Footer layout: stack columns and left-align on tablet/mobile */
+    .u-footer-main {
+      flex-direction: column;
+      gap: var(--row-gap);
+    }
+
+    .u-footer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    /* Hide line above footer header on mobile */
+    .u-footer-header > div:nth-child(3) {
+      display: none !important;
+    }
+
+    .u-footer-backtop-header {
+      display: none !important;
+    }
+
+    /* Hide Credits and Copyright rows in grid, keep Sitemap and Social */
+    .u-footer-grid > div:nth-child(3),
+    .u-footer-grid > div:nth-child(4),
+    .u-footer-grid > div:nth-child(5) {
+      display: none !important;
+    }
+
+    /* Add line separator between email button and sitemap grid */
+    .u-footer-main > div:first-child::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 1px;
+      background-color: var(--color-border);
+      /* margin-top: calc(var(--row-gap) * 2); */
+      margin-bottom: 0;
+    }
+
+    /* Show mobile footer bottom layout */
+    .u-footer-bottom-mobile {
+      display: flex !important;
+      flex-direction: column;
+    }
+
+    /* Balance footer padding on mobile */
+    footer {
+      padding-top: var(--row-gap) !important;
+      padding-bottom: var(--row-gap) !important;
+    }
+
+    /* Reduce footer header padding bottom for balance */
+    .u-footer-header > div:first-child {
+      padding-bottom: var(--row-gap) !important;
+    }
   }
 
   /* Mobile (540px) */

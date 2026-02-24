@@ -148,7 +148,7 @@ export default function Menu() {
       <button
         aria-expanded={isOpen}
         aria-label={isOpen ? "Close menu" : "Open menu"}
-        className="u-menu absolute right-0 bottom-0 z-50 cursor-pointer rounded-full border border-current bg-white font-medium text-current transition-none"
+        className="u-menu fixed right-0 bottom-0 z-50 cursor-pointer rounded-full border border-current bg-white font-medium text-current transition-none"
         onClick={() => setIsOpen((prev) => !prev)}
         ref={buttonRef}
         style={{ opacity: 0 }}

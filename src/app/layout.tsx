@@ -6,7 +6,10 @@ import Menu from "@/components/menu/menu";
 import Nav from "@/components/nav/nav";
 
 export const metadata: Metadata = {
-  title: "Truong Giang — Freelance Software Engineer",
+  title: {
+    default: "Truong Giang — Freelance Software Engineer",
+    template: "%s — Truong Giang",
+  },
   description:
     "Creative developer bridging the gap between design and technology. Services cover interactive frontend, creative coding, UI animation, web performance, mobile apps, prototyping, and technical direction.",
   openGraph: {

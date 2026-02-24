@@ -1,8 +1,8 @@
 "use client";
 
-import gsap from "gsap";
 import type React from "react";
 import { useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap-client";
 import { cn } from "@/lib/utils";
 
 type ButtonProps = React.ComponentProps<"button">;
@@ -16,46 +16,49 @@ function Button({
 }: ButtonProps) {
   const topLabelRef = useRef<HTMLSpanElement | null>(null);
   const bottomLabelRef = useRef<HTMLSpanElement | null>(null);
+  const { contextSafe } = useGSAP();
 
-  const handleMouseEnter: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    if (topLabelRef.current && bottomLabelRef.current) {
-      gsap.killTweensOf([topLabelRef.current, bottomLabelRef.current]);
+  const handleMouseEnter: React.MouseEventHandler<HTMLButtonElement> =
+    contextSafe((e) => {
+      if (topLabelRef.current && bottomLabelRef.current) {
+        gsap.killTweensOf([topLabelRef.current, bottomLabelRef.current]);
 
-      gsap.to(topLabelRef.current, {
-        yPercent: -100,
-        duration: 0.3,
-        ease: "power2.out",
-      });
+        gsap.to(topLabelRef.current, {
+          yPercent: -100,
+          duration: 0.3,
+          ease: "power2.out",
+        });
 
-      gsap.to(bottomLabelRef.current, {
-        yPercent: -100,
-        duration: 0.3,
-        ease: "power2.out",
-      });
-    }
+        gsap.to(bottomLabelRef.current, {
+          yPercent: -100,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      }
 
-    onMouseEnter?.(e);
-  };
+      onMouseEnter?.(e);
+    });
 
-  const handleMouseLeave: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    if (topLabelRef.current && bottomLabelRef.current) {
-      gsap.killTweensOf([topLabelRef.current, bottomLabelRef.current]);
+  const handleMouseLeave: React.MouseEventHandler<HTMLButtonElement> =
+    contextSafe((e) => {
+      if (topLabelRef.current && bottomLabelRef.current) {
+        gsap.killTweensOf([topLabelRef.current, bottomLabelRef.current]);
 
-      gsap.to(topLabelRef.current, {
-        yPercent: 0,
-        duration: 0.3,
-        ease: "power2.inOut",
-      });
+        gsap.to(topLabelRef.current, {
+          yPercent: 0,
+          duration: 0.3,
+          ease: "power2.inOut",
+        });
 
-      gsap.to(bottomLabelRef.current, {
-        yPercent: 0,
-        duration: 0.3,
-        ease: "power2.inOut",
-      });
-    }
+        gsap.to(bottomLabelRef.current, {
+          yPercent: 0,
+          duration: 0.3,
+          ease: "power2.inOut",
+        });
+      }
 
-    onMouseLeave?.(e);
-  };
+      onMouseLeave?.(e);
+    });
 
   return (
     <button
