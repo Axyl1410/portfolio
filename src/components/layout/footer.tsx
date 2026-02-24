@@ -1,8 +1,15 @@
-import Link from "next/link";
-import { ROUTES, SOCIALS } from "@/lib/nav-shared";
+"use client";
+
+import { usePathname } from "next/navigation";
+import { useTransitionRouter } from "next-view-transitions";
+import { createNavClickHandler, ROUTES, SOCIALS } from "@/lib/nav-shared";
+import { AnimatedLink } from "../ui/animated-link";
 import { Button } from "../ui/button";
 
 export default function Footer() {
+  const router = useTransitionRouter();
+  const pathname = usePathname();
+
   return (
     <footer className="mt-5 pt-(--section-padding) pb-(--row-gap) md:mt-0">
       <div className="u-container px-0!">
@@ -43,7 +50,16 @@ export default function Footer() {
                 <div className="u-footer-text flex flex-wrap font-medium text-[0.85em] uppercase">
                   {ROUTES.map((route, index) => (
                     <span key={route.label}>
-                      <Link href={route.url}>{route.label}</Link>
+                      <AnimatedLink
+                        href={route.url}
+                        onClick={createNavClickHandler(
+                          pathname,
+                          router,
+                          route.url
+                        )}
+                      >
+                        {route.label}
+                      </AnimatedLink>
                       {index < ROUTES.length - 1 && <span>{",\u00A0"}</span>}
                     </span>
                   ))}
@@ -57,7 +73,20 @@ export default function Footer() {
                 <div className="u-footer-text flex flex-wrap font-medium text-[0.85em] uppercase">
                   {SOCIALS.map((social, index) => (
                     <span key={social.label}>
-                      <Link href={social.url}>{social.label}</Link>
+                      <AnimatedLink
+                        href={social.url}
+                        onClick={
+                          social.url.startsWith("/")
+                            ? createNavClickHandler(
+                                pathname,
+                                router,
+                                social.url
+                              )
+                            : undefined
+                        }
+                      >
+                        {social.label}
+                      </AnimatedLink>
                       {index < SOCIALS.length - 1 && <span>{",\u00A0"}</span>}
                     </span>
                   ))}
