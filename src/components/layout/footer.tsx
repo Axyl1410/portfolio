@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 
 export default function Footer() {
   return (
-    <footer className="pt-(--section-padding) pb-(--row-gap)">
+    <footer className="mt-5 pt-(--section-padding) pb-(--row-gap) md:mt-0">
       <div className="u-container px-0!">
         <div className="u-footer-header relative flex w-full">
           <div className="relative flex w-full flex-col pb-[calc(var(--row-gap)*2.5)]">
@@ -40,7 +40,7 @@ export default function Footer() {
                 <div className="text-(--color-gray) text-[0.725em]">
                   Sitemap
                 </div>
-                <div className="flex flex-wrap font-medium uppercase">
+                <div className="u-footer-text flex flex-wrap font-medium text-[0.85em] uppercase">
                   {ROUTES.map((route, index) => (
                     <span key={route.label}>
                       <Link href={route.url}>{route.label}</Link>
@@ -54,7 +54,7 @@ export default function Footer() {
                 <div className="text-(--color-gray) text-[0.725em]">
                   Let's connect
                 </div>
-                <div className="flex flex-wrap font-medium uppercase">
+                <div className="u-footer-text flex flex-wrap font-medium text-[0.85em] uppercase">
                   {SOCIALS.map((social, index) => (
                     <span key={social.label}>
                       <Link href={social.url}>{social.label}</Link>
@@ -70,7 +70,7 @@ export default function Footer() {
                 <div className="text-(--color-gray) text-[0.725em]">
                   Credits
                 </div>
-                <div className="font-medium uppercase">
+                <div className="u-footer-text font-medium text-[0.85em] uppercase">
                   <p>Truong Giang [DEV]</p>
                 </div>
               </div>
@@ -79,7 +79,7 @@ export default function Footer() {
                 <div className="text-(--color-gray) text-[0.725em]">
                   Copyright
                 </div>
-                <div className="font-medium uppercase">
+                <div className="u-footer-text font-medium text-[0.85em] uppercase">
                   <p>Truong Giang™, 2026</p>
                   <p>© ALL RIGHTS RESERVED</p>
                 </div>
@@ -89,30 +89,30 @@ export default function Footer() {
         </div>
 
         <div className="u-footer-bottom-mobile mt-(--row-gap) hidden flex-col">
-          <div className="h-px w-full bg-(--color-border)" />
+          <div className="my-(--row-gap) h-px w-full bg-(--color-border)" />
 
-          <div className="py-[0.75em] text-(--color-gray) text-[0.725em]">
+          <div className="py-[0.75em] pt-[1em] text-(--color-gray) text-[0.725em]">
             Credits
           </div>
 
-          <div className="font-medium uppercase">
+          <div className="u-footer-text font-medium text-[0.85em] uppercase">
             <p>Truong Giang [DEV]</p>
           </div>
 
           <div className="my-(--row-gap) h-px w-full bg-(--color-border)" />
 
-          <div className="py-[0.75em] text-(--color-gray) text-[0.725em]">
+          <div className="py-[0.75em] pt-[1em] text-(--color-gray) text-[0.725em]">
             Copyright
           </div>
 
-          <div className="font-medium uppercase">
+          <div className="u-footer-text font-medium text-[0.85em] uppercase">
             <p>Truong Giang™, 2026</p>
             <p>© ALL RIGHTS RESERVED</p>
           </div>
 
           <div className="my-(--row-gap) h-px w-full bg-(--color-border)" />
 
-          <div className="u-footer-backtop-mobile flex w-full justify-start">
+          <div className="u-footer-backtop-mobile mt-(--row-gap) flex w-full justify-start">
             <Button className="whitespace-nowrap uppercase">Back to top</Button>
           </div>
         </div>
