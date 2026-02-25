@@ -51,7 +51,7 @@ function createLoaderTimeline(
       duration: 1,
       ease: "power3.inOut",
     })
-    .to(loaderEl, { duration: 0.5 })
+    .to(loaderEl, { duration: 0.3 })
     .to(loaderEl, {
       x: positions.cssOffsetX,
       y: positions.cssOffsetY,
@@ -88,6 +88,14 @@ function createLoaderTimeline(
     );
   }
 
+  tl.call(
+    () => {
+      window.dispatchEvent(new Event("home-intro-complete"));
+    },
+    undefined,
+    "reveal"
+  );
+
   return tl;
 }
 
@@ -116,8 +124,8 @@ function initializeLoader(
     clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
   });
 
-  const revealTargets = [navEl, menuButtonEl, contentEl].filter(
-    (el): el is HTMLElement => Boolean(el)
+  const revealTargets = [menuButtonEl, contentEl].filter(
+    (el): el is HTMLDivElement | HTMLButtonElement => Boolean(el)
   );
 
   createLoaderTimeline(loaderEl, positions, revealTargets, textEl);

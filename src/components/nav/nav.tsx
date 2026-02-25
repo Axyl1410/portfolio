@@ -1,5 +1,9 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+import { useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap-client";
+import { INTRO_LOADER_SESSION_KEY } from "@/lib/intro-loader";
 import {
   NameSection,
   SitemapSection,
@@ -8,13 +12,104 @@ import {
 } from "./nav-sections";
 
 export default function Nav() {
+  const navRef = useRef<HTMLElement | null>(null);
+  const hasAnimatedRef = useRef(false);
+  const nameRef = useRef<HTMLDivElement | null>(null);
+  const statusRef = useRef<HTMLDivElement | null>(null);
+  const sitemapRef = useRef<HTMLDivElement | null>(null);
+  const socialsRef = useRef<HTMLDivElement | null>(null);
+  const lineRef = useRef<HTMLDivElement | null>(null);
+  const pathname = usePathname();
+
+  const runAnimation = (delay = 0) => {
+    if (!navRef.current || hasAnimatedRef.current) {
+      return;
+    }
+
+    hasAnimatedRef.current = true;
+
+    gsap.set(navRef.current, { opacity: 1 });
+
+    const items = [
+      nameRef.current,
+      statusRef.current,
+      sitemapRef.current,
+      socialsRef.current,
+    ].filter(Boolean);
+
+    const tl = gsap.timeline({
+      defaults: { ease: "power3.inOut" },
+      delay,
+    });
+
+    if (lineRef.current) {
+      tl.fromTo(
+        lineRef.current,
+        { scaleX: 0 },
+        { scaleX: 1, duration: 1.5, transformOrigin: "left" }
+      );
+    }
+
+    if (items.length) {
+      tl.from(
+        items,
+        {
+          y: 20,
+          opacity: 0,
+          duration: 1.5,
+          stagger: 0.1,
+        },
+        "<"
+      );
+    }
+  };
+
+  useGSAP(
+    () => {
+      const isHome = pathname === "/";
+      const loaderPlayed =
+        typeof window !== "undefined"
+          ? sessionStorage.getItem(INTRO_LOADER_SESSION_KEY)
+          : null;
+
+      if (isHome && !loaderPlayed) {
+        if (typeof window !== "undefined") {
+          const handler = () => {
+            runAnimation(0);
+          };
+          window.addEventListener("home-intro-complete", handler, {
+            once: true,
+          });
+        }
+        return;
+      }
+
+      runAnimation(1);
+    },
+    { scope: navRef, dependencies: [pathname], revertOnUpdate: true }
+  );
+
   return (
-    <nav className="u-gap relative flex w-full flex-wrap items-center justify-between py-[calc(var(--row-gap)-0.15em)]">
-      <NameSection />
-      <StatusSection />
-      <SitemapSection />
-      <SocialsSection />
-      <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-px origin-left bg-(--color-border)" />
+    <nav
+      className="u-gap relative flex w-full flex-wrap items-center justify-between py-[calc(var(--row-gap)-0.15em)]"
+      ref={navRef}
+    >
+      <div ref={nameRef}>
+        <NameSection />
+      </div>
+      <div ref={statusRef}>
+        <StatusSection />
+      </div>
+      <div className="max-[860px]:hidden" ref={sitemapRef}>
+        <SitemapSection />
+      </div>
+      <div className="max-[860px]:hidden" ref={socialsRef}>
+        <SocialsSection />
+      </div>
+      <div
+        className="pointer-events-none absolute right-0 bottom-0 left-0 h-px origin-left bg-(--color-border)"
+        ref={lineRef}
+      />
     </nav>
   );
 }

@@ -26,7 +26,26 @@
     display: none;
   }
 
+  .u-split-word {
+    display: inline-block;
+    overflow: hidden;
+    line-height: 1.1;
+    vertical-align: top;
+  }
+
+  .u-split-word-inner {
+    display: block;
+    line-height: 1.1;
+    will-change: transform;
+  }
+
   .u-text-indent-hero {
+    display: inline-block;
     text-indent: calc(var(--title-size) * 0.28);
+  }
+
+  .u-text-indent-hero .u-split-word,
+  .u-text-indent-hero .u-split-word-inner {
+    text-indent: 0;
   }
 }
