@@ -49,7 +49,7 @@ export default function Home() {
         return;
       }
 
-      runAnimation(0.8);
+      runAnimation(1);
     },
     { scope: contentRef }
   );
