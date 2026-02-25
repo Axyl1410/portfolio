@@ -4,6 +4,7 @@ import type React from "react";
 import { useRef } from "react";
 import { gsap, ScrollTrigger, SplitText, useGSAP } from "@/lib/gsap-client";
 import { cn } from "@/lib/utils";
+import { prefersReducedMotion } from "@/utils/motion";
 
 type SplitTextOnScrollProps = React.HTMLAttributes<HTMLDivElement> & {
   delay?: number;
@@ -26,10 +27,16 @@ function SplitTextOnScroll({
         return;
       }
 
+      if (prefersReducedMotion()) {
+        return;
+      }
+
       const split = new SplitText(el, { type: "chars" });
       if (!split.chars?.length) {
         return;
       }
+
+      gsap.set(split.chars, { willChange: "transform, opacity" });
 
       const tween = gsap.to(split.chars, {
         keyframes: [
@@ -48,6 +55,7 @@ function SplitTextOnScroll({
       const st = ScrollTrigger.create({
         trigger: el,
         start,
+        once: true,
         onEnter: () => {
           tween.play();
         },

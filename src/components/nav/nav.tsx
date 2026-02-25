@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap-client";
 import { INTRO_LOADER_SESSION_KEY } from "@/lib/intro-loader";
+import { prefersReducedMotion } from "@/utils/motion";
 import {
   NameSection,
   SitemapSection,
@@ -28,6 +29,11 @@ export default function Nav() {
 
     hasAnimatedRef.current = true;
 
+    if (prefersReducedMotion()) {
+      gsap.set(navRef.current, { opacity: 1 });
+      return;
+    }
+
     gsap.set(navRef.current, { opacity: 1 });
 
     const items = [
@@ -36,6 +42,11 @@ export default function Nav() {
       sitemapRef.current,
       socialsRef.current,
     ].filter(Boolean);
+
+    gsap.set(items, { willChange: "transform, opacity" });
+    if (lineRef.current) {
+      gsap.set(lineRef.current, { willChange: "transform, opacity" });
+    }
 
     const tl = gsap.timeline({
       defaults: { ease: "power3.inOut" },

@@ -6,6 +6,7 @@ import { useRef } from "react";
 import { gsap, SplitText, useGSAP } from "@/lib/gsap-client";
 import { INTRO_LOADER_SESSION_KEY } from "@/lib/intro-loader";
 import { cn } from "@/lib/utils";
+import { prefersReducedMotion } from "@/utils/motion";
 
 type SplitWordsOnScrollProps = React.HTMLAttributes<HTMLDivElement> & {
   delay?: number;
@@ -29,6 +30,10 @@ function SplitWordsOnScroll({
     () => {
       const el = container.current;
       if (!el) {
+        return;
+      }
+
+      if (prefersReducedMotion()) {
         return;
       }
 

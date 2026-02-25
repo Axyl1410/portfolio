@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap-client";
 import { INTRO_LOADER_SESSION_KEY } from "@/lib/intro-loader";
+import { prefersReducedMotion } from "@/utils/motion";
 
 interface HomeIntroLoaderProps {
   contentRef: React.RefObject<HTMLDivElement | null>;
@@ -107,10 +108,14 @@ function initializeLoader(
   const navEl = document.querySelector<HTMLElement>("nav");
   const menuButtonEl = document.querySelector<HTMLButtonElement>(".u-menu");
   const hasPlayed = sessionStorage.getItem(INTRO_LOADER_SESSION_KEY);
+  const reduceMotion = prefersReducedMotion();
 
-  if (hasPlayed) {
+  if (hasPlayed || reduceMotion) {
     setElementsVisible([contentEl, navEl, menuButtonEl, textEl], 1);
     document.body.style.background = "black";
+    if (!hasPlayed) {
+      sessionStorage.setItem(INTRO_LOADER_SESSION_KEY, "true");
+    }
     return;
   }
 
@@ -118,6 +123,7 @@ function initializeLoader(
 
   const positions = getLoaderPositions(loaderEl);
   gsap.set(loaderEl, {
+    willChange: "transform, clip-path, opacity",
     x: positions.cssOffsetX + positions.toCenterX,
     y: positions.cssOffsetY + positions.toCenterY,
     scale: 0.8,

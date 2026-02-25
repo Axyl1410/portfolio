@@ -1,8 +1,14 @@
+import { prefersReducedMotion } from "./motion";
+
 /**
  * Page transition animation using View Transitions API
  * Handles the animation for page transitions in the application
  */
 export const pageAnimation = () => {
+  if (prefersReducedMotion()) {
+    return;
+  }
+
   document.documentElement.animate(
     [
       {
@@ -43,6 +49,10 @@ export const pageAnimation = () => {
 };
 
 export const pageAnimationFromMenu = () => {
+  if (prefersReducedMotion()) {
+    return;
+  }
+
   document.documentElement.animate([{ opacity: 0 }, { opacity: 1 }], {
     duration: 300,
     easing: "ease-out",
