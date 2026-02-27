@@ -26,7 +26,7 @@ function OGImage() {
         flexDirection: "column",
         alignItems: "flex-start",
         justifyContent: "space-between",
-        backgroundColor: "#030401",
+        backgroundColor: "#ffffff",
         padding: "80px",
         fontFamily: "system-ui, -apple-system, sans-serif",
       }}
@@ -52,7 +52,7 @@ function OGImage() {
               display: "flex",
               fontSize: "72px",
               fontWeight: "500",
-              color: "#fff",
+              color: "#111111",
               lineHeight: "1.1",
               letterSpacing: "-0.02em",
             }}
@@ -76,7 +76,7 @@ function OGImage() {
             display: "flex",
             fontSize: "48px",
             fontWeight: "500",
-            color: "#fff",
+            color: "#111111",
             lineHeight: "1.2",
             maxWidth: "900px",
           }}
@@ -90,7 +90,7 @@ function OGImage() {
           style={{
             display: "flex",
             fontSize: "28px",
-            color: "#b4b4b4",
+            color: "#555555",
             lineHeight: "1.4",
             maxWidth: "800px",
           }}
@@ -113,7 +113,7 @@ function OGImage() {
             display: "flex",
             gap: "24px",
             fontSize: "20px",
-            color: "#666",
+            color: "#555555",
           }}
         >
           <div style={{ display: "flex" }}>Based in Vietnam</div>
@@ -126,10 +126,10 @@ function OGImage() {
           style={{
             display: "flex",
             padding: "12px 24px",
-            border: "1px solid #333",
+            border: "1px solid #dddddd",
             borderRadius: "999px",
             fontSize: "18px",
-            color: "#fff",
+            color: "#111111",
             fontWeight: "500",
           }}
         >
