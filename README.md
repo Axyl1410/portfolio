@@ -1,47 +1,63 @@
-# OpenNext Starter
+# Nguyen Truong Giang – Portfolio
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Modern, animation‑driven personal portfolio built with Next.js, GSAP, and View Transitions, showcasing my work as a full‑stack developer.
+
+Open Graph preview
+
+## Tech Stack
+
+- **Framework**: Next.js (App Router)
+- **Language**: TypeScript
+- **Styling**: CSS utilities & Tailwind css
+- **Animations**: GSAP (scroll reveals, loaders, nav, buttons)
+- **Page Transitions**: View Transitions API
+- **Deployment Target**: Cloudflare (via OpenNext)
+
+## Features
+
+- **Animated page transitions** using the View Transitions API
+- **Intro loader** that reveals the hero content, nav, and menu in a coordinated sequence
+- **Scroll‑based text reveals** (word/character splitting with GSAP)
+- **Responsive navigation** with animated underline and menu overlay
+- **Lightweight, performance‑minded motion** that respects `prefers-reduced-motion`
 
 ## Getting Started
 
-Read the documentation at https://opennext.js.org/cloudflare.
+Clone the repository and install dependencies:
 
-## Develop
+```bash
+npm install
+# or
+pnpm install
+# or
+bun install
+```
 
-Run the Next.js development server:
+Run the development server:
 
 ```bash
 npm run dev
-# or similar package manager command
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open `http://localhost:3000` in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-## Preview
+- `**npm run dev**` – Start the Next.js development server
+- `**npm run preview**` – Preview the application locally on the Cloudflare runtime
+- `**npm run deploy**` – Deploy the application to Cloudflare
 
-Preview the application locally on the Cloudflare runtime:
+## Project Structure (high level)
 
-```bash
-npm run preview
-# or similar package manager command
-```
+- `**src/app**` – App Router pages, layouts, OG routes, metadata
+- `**src/components**` – Reusable UI, navigation, loaders, and animation components
+- `**src/styles**` – Global styles and utility classes (typography, layout, components)
+- `**src/utils**` – Helpers for page transitions, motion preferences, etc.
 
-## Deploy
+## License
 
-Deploy the application to Cloudflare:
+Licensed under the **Apache License, Version 2.0** (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
-```bash
-npm run deploy
-# or similar package manager command
-```
+[http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
