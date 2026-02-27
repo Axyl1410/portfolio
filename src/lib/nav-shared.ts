@@ -23,7 +23,7 @@ export const ROUTES: NavLink[] = [
 ];
 
 export const SOCIALS: NavLink[] = [
-  { label: "Resume", url: "/resume" },
+  { label: "Resume", url: "/assets/Resume.pdf" },
   { label: "Facebook", url: "https://facebook.com/alexsandrsenaviev" },
   { label: "Instagram", url: "https://instagram.com/axyl1410" },
   { label: "Email", url: "mailto:truonggiang.axyl@gmail.com" },
