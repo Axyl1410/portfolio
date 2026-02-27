@@ -46,13 +46,13 @@ function createLoaderTimeline(
 ) {
   const tl = gsap.timeline();
 
-  tl.to(loaderEl, { duration: 0.25 })
+  tl.to(loaderEl, { duration: 0.5 })
     .to(loaderEl, {
       clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
       duration: 1,
       ease: "power3.inOut",
     })
-    .to(loaderEl, { duration: 0.3 })
+    .to(loaderEl, { duration: 0.5 })
     .to(loaderEl, {
       x: positions.cssOffsetX,
       y: positions.cssOffsetY,
