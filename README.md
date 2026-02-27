@@ -1,8 +1,8 @@
-# Nguyen Truong Giang – Portfolio
+# Axyl1410 – Portfolio
+
+![Open Graph preview](https://nguyentruonggiang.id.vn/og)
 
 Modern, animation‑driven personal portfolio built with Next.js, GSAP, and View Transitions, showcasing my work as a full‑stack developer.
-
-Open Graph preview
 
 ## Tech Stack
 
