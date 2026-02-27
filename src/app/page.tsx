@@ -91,9 +91,9 @@ export default function Home() {
               </div>
               <div className="u-bottom-content">
                 <div className="flex flex-col gap-[0.75em]">
-                  <div className="u-meta">Branding, Web Design, 2025</div>
+                  <div className="u-meta">Coming Soon</div>
                   <div className="line-clamp-2 min-h-[calc((0.8725em*1.36)*2)] text-[1.25em] leading-[1.36]">
-                    AXIOM
+                    Coming Soon...
                   </div>
                 </div>
                 <div className="flex">
