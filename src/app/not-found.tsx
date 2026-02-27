@@ -3,11 +3,16 @@
 import { MoveLeft } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useTransitionRouter } from "next-view-transitions";
+import { useEffect } from "react";
 import { createNavClickHandler } from "@/lib/nav-shared";
 
 export default function NotFound() {
   const transitionRouter = useTransitionRouter();
   const pathname = usePathname();
+
+  useEffect(() => {
+    document.body.style.background = "black";
+  }, []);
 
   const handleGoBack = () => {
     transitionRouter.back();
@@ -16,7 +21,7 @@ export default function NotFound() {
   const handleGoHome = createNavClickHandler(pathname, transitionRouter, "/");
 
   return (
-    <section className="flex h-screen w-full flex-1 flex-col items-center justify-center bg-white">
+    <section className="flex h-screen w-screen flex-1 flex-col items-center justify-center bg-white">
       <div className="px-4">
         <p className="font-medium text-(--color-primary) text-sm">404 error</p>
         <h1 className="mt-3 font-semibold text-2xl text-gray-800 md:text-3xl">
