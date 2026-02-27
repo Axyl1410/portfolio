@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { ViewTransitions } from "next-view-transitions";
 import "./globals.css";
 import PageWrapper from "@/components/layout/page-wrapper";
-import Menu from "@/components/menu/menu";
-import Nav from "@/components/nav/nav";
 
 export const metadata: Metadata = {
   title: {
@@ -51,13 +49,7 @@ export default function RootLayout({
           />
         </head>
         <body className="antialiased">
-          <PageWrapper>
-            <div className="u-container u-gap flex min-h-screen flex-col">
-              <Nav />
-              <main className="flex flex-1 flex-col">{children}</main>
-              <Menu />
-            </div>
-          </PageWrapper>
+          <PageWrapper>{children}</PageWrapper>
         </body>
       </html>
     </ViewTransitions>

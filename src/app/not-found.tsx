@@ -16,8 +16,8 @@ export default function NotFound() {
   const handleGoHome = createNavClickHandler(pathname, transitionRouter, "/");
 
   return (
-    <section className="h-full w-full flex-1 flex-col items-start justify-center bg-white">
-      <div className="w-full lg:w-1/2">
+    <section className="flex h-screen w-full flex-1 flex-col items-center justify-center bg-white">
+      <div className="px-4">
         <p className="font-medium text-(--color-primary) text-sm">404 error</p>
         <h1 className="mt-3 font-semibold text-2xl text-gray-800 md:text-3xl">
           Page not found
