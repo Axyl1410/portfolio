@@ -1,10 +1,10 @@
 {
   "version": 1,
   "skills": {
-    "gsap": {
-      "source": "martinholovsky/claude-skills-generator",
+    "gsap-react": {
+      "source": "bbeierle12/skill-mcp-claude",
       "sourceType": "github",
-      "computedHash": "b7d401d70a6f6f2bd29bb36ee803564cb071cc43bf5701e32a5dedbf88cc1466"
+      "computedHash": "53dafcee0becafe2054bc12c3f5b129d05623c0ae16ca8e5f398629dbaf78a7b"
     },
     "next-best-practices": {
       "source": "vercel-labs/next-skills",
