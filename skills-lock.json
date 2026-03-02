@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "skills": {
+    "gsap": {
+      "source": "martinholovsky/claude-skills-generator",
+      "sourceType": "github",
+      "computedHash": "b7d401d70a6f6f2bd29bb36ee803564cb071cc43bf5701e32a5dedbf88cc1466"
+    },
+    "next-best-practices": {
+      "source": "vercel-labs/next-skills",
+      "sourceType": "github",
+      "computedHash": "515ba75178bd44875812d9a560bdf14651f86709f89cf1d4f209638e879807f3"
+    }
+  }
+}
