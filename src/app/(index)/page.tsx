@@ -40,7 +40,7 @@ export default function Home() {
       const loaderPlayed = sessionStorage.getItem(INTRO_LOADER_SESSION_KEY);
       if (!loaderPlayed) {
         const handler = () => {
-          runAnimation(0);
+          runAnimation(0.8);
         };
         window.addEventListener("home-intro-complete", handler, {
           once: true,
@@ -49,7 +49,7 @@ export default function Home() {
         return;
       }
 
-      runAnimation(1);
+      runAnimation(1.75);
     },
     { scope: contentRef }
   );
