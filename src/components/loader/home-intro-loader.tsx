@@ -80,9 +80,9 @@ function createLoaderTimeline(
     tl.set(photos[i - 1], { opacity: 0 }, "<");
   }
 
-  if (imageCount === 1) {
-    tl.to(loaderEl, { duration: 0.5 });
-  }
+  // if (imageCount === 1) {
+  tl.to(loaderEl, { duration: 0.5 });
+  // }
 
   tl.to(loaderEl, {
     x: positions.cssOffsetX,

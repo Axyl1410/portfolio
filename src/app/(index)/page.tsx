@@ -106,7 +106,14 @@ export default function Home() {
         </div>
       </div>
 
-      <HomeIntroLoader contentRef={contentRef} imageSrc="/images/hero.jpg" />
+      <HomeIntroLoader
+        contentRef={contentRef}
+        images={[
+          { src: "/images/hero-1.jpg", alt: "Hero Image" },
+          { src: "/images/hero-2.jpg", alt: "Hero Image" },
+          { src: "/images/hero-3.jpg", alt: "Hero Image" },
+        ]}
+      />
     </>
   );
 }
