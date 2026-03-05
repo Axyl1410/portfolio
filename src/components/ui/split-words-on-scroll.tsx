@@ -109,7 +109,7 @@ function runIntroAwareAnimation(
     {
       y: 0,
       rotationZ: 0,
-      duration: 0.8,
+      duration: 0.75,
       ease: "power3.out",
       stagger: 0.08,
       delay: effectiveDelay,

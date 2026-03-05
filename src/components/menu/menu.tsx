@@ -46,7 +46,7 @@ export default function Menu() {
 
     gsap.to(white, {
       clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-      duration: 1,
+      duration: 0.75,
       ease: "power3.inOut",
       onComplete: () => {
         const menu = menuOverlayRef.current;
@@ -113,7 +113,7 @@ export default function Menu() {
         { clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" },
         {
           clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-          duration: 1,
+          duration: 0.8,
           ease: "power3.inOut",
         },
         0

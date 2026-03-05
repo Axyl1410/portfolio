@@ -29,7 +29,7 @@ export default function Home() {
           {
             opacity: 1,
             y: 0,
-            duration: 0.8,
+            duration: 0.5,
             ease: "power3.out",
             stagger: 0.08,
             delay,
@@ -40,7 +40,7 @@ export default function Home() {
       const loaderPlayed = sessionStorage.getItem(INTRO_LOADER_SESSION_KEY);
       if (!loaderPlayed) {
         const handler = () => {
-          runAnimation(0.8);
+          runAnimation(0);
         };
         window.addEventListener("home-intro-complete", handler, {
           once: true,
@@ -49,7 +49,7 @@ export default function Home() {
         return;
       }
 
-      runAnimation(1.75);
+      runAnimation(1);
     },
     { scope: contentRef }
   );
@@ -106,7 +106,7 @@ export default function Home() {
         </div>
       </div>
 
-      <HomeIntroLoader contentRef={contentRef} />
+      <HomeIntroLoader contentRef={contentRef} imageSrc="/images/hero.jpg" />
     </>
   );
 }
