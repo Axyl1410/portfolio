@@ -61,7 +61,7 @@ function createLoaderTimeline(
   const revealOnce = () => {
     tl.to(loaderEl, {
       clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-      duration: 0.9,
+      duration: 1,
       ease: "power3.inOut",
     });
   };
@@ -72,7 +72,7 @@ function createLoaderTimeline(
 
   // Loop through images to transition opacity instead of changing src
   for (let i = 1; i < imageCount; i += 1) {
-    tl.to(loaderEl, { duration: 0.5 });
+    tl.to(loaderEl, { duration: 0.75 });
 
     // Set current image to visible and previous image to hidden
     // Use '<' position parameter to run both commands simultaneously
@@ -80,11 +80,7 @@ function createLoaderTimeline(
     tl.set(photos[i - 1], { opacity: 0 }, "<");
   }
 
-  // if (imageCount === 1) {
-  tl.to(loaderEl, { duration: 0.5 });
-  // }
-
-  tl.to(loaderEl, {
+  tl.to(loaderEl, { duration: 0.75 }).to(loaderEl, {
     x: positions.cssOffsetX,
     y: positions.cssOffsetY,
     scale: 1,
@@ -97,8 +93,7 @@ function createLoaderTimeline(
     },
   });
 
-  tl.addLabel("reveal");
-  tl.to(
+  tl.addLabel("reveal").to(
     revealTargets,
     {
       opacity: 1,
