@@ -72,8 +72,6 @@ function createLoaderTimeline(
 
   // Loop through images to transition opacity instead of changing src
   for (let i = 1; i < imageCount; i += 1) {
-    tl.to(loaderEl, { duration: 0.75 });
-
     // Set current image to visible and previous image to hidden
     // Use '<' position parameter to run both commands simultaneously
     tl.set(photos[i], { opacity: 1 });
@@ -211,10 +209,10 @@ export default function HomeIntroLoader({
               alt={img.alt ?? imageAlt}
               className="u-loader-photo object-cover"
               draggable={false}
-              fetchPriority={index === 0 ? "high" : "low"}
+              fetchPriority="high"
               fill
               key={img.src}
-              priority={index === 0}
+              priority
               src={img.src}
               style={{
                 opacity: index === 0 ? 1 : 0,
