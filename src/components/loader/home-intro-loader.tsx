@@ -72,7 +72,7 @@ function createLoaderTimeline(
 
   // Loop through images to transition opacity instead of changing src
   for (let i = 1; i < imageCount; i += 1) {
-    tl.to(loaderEl, { duration: 0.35, ease: "power3.inOut" });
+    tl.to(loaderEl, { duration: 0.5, ease: "power3.inOut" });
     // Set current image to visible and previous image to hidden
     // Use '<' position parameter to run both commands simultaneously
     tl.set(photos[i], { opacity: 1, ease: "power2.inOut" });
