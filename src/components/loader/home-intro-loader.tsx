@@ -132,7 +132,7 @@ function initializeLoader(
   options: {
     imageCount: number;
   }
-) {
+): gsap.core.Timeline | undefined {
   const navEl = document.querySelector<HTMLElement>("nav");
   const menuButtonEl = document.querySelector<HTMLButtonElement>(".u-menu");
   const hasPlayed = sessionStorage.getItem(INTRO_LOADER_SESSION_KEY);
@@ -162,7 +162,13 @@ function initializeLoader(
     (el): el is HTMLDivElement | HTMLButtonElement => Boolean(el)
   );
 
-  createLoaderTimeline(loaderEl, positions, revealTargets, textEl, options);
+  return createLoaderTimeline(
+    loaderEl,
+    positions,
+    revealTargets,
+    textEl,
+    options
+  );
 }
 
 export default function HomeIntroLoader({
@@ -187,11 +193,17 @@ export default function HomeIntroLoader({
       const contentEl = contentRef.current;
       const textEl = textRef.current;
 
-      if (loaderEl && contentEl) {
-        initializeLoader(loaderEl, contentEl, textEl, {
-          imageCount: normalizedImages.length,
-        });
+      if (!(loaderEl && contentEl)) {
+        return;
       }
+
+      const tl = initializeLoader(loaderEl, contentEl, textEl, {
+        imageCount: normalizedImages.length,
+      });
+
+      return () => {
+        tl?.kill();
+      };
     },
     { dependencies: [normalizedImages.length] }
   );

@@ -46,6 +46,7 @@ function SplitWordsOnScroll({
       });
       const words = split.words ?? [];
       if (!words.length) {
+        split.revert();
         return;
       }
 
@@ -73,11 +74,10 @@ function SplitWordsOnScroll({
           : null;
 
       if (waitForIntro) {
-        runIntroAwareAnimation(innerWords, split, !!loaderPlayed);
-        return;
+        return runIntroAwareAnimation(innerWords, split, !!loaderPlayed);
       }
 
-      runScrollAnimation(innerWords, split, el, {
+      return runScrollAnimation(innerWords, split, el, {
         delay,
         start,
         end,

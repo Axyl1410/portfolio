@@ -33,6 +33,7 @@ function SplitTextOnScroll({
 
       const split = new SplitText(el, { type: "chars" });
       if (!split.chars?.length) {
+        split.revert();
         return;
       }
 

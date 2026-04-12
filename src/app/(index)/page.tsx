@@ -46,7 +46,9 @@ export default function Home() {
           once: true,
         });
 
-        return;
+        return () => {
+          window.removeEventListener("home-intro-complete", handler);
+        };
       }
 
       runAnimation(1);

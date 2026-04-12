@@ -91,6 +91,9 @@ export default function Nav() {
           window.addEventListener("home-intro-complete", handler, {
             once: true,
           });
+          return () => {
+            window.removeEventListener("home-intro-complete", handler);
+          };
         }
         return;
       }
