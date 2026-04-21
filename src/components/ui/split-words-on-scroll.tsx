@@ -83,7 +83,11 @@ function SplitWordsOnScroll({
         end,
       });
     },
-    { scope: container }
+    {
+      scope: container,
+      dependencies: [delay, start, end, waitForIntro],
+      revertOnUpdate: true,
+    }
   );
 
   return (
@@ -120,6 +124,7 @@ function runIntroAwareAnimation(
   if (loaderPlayed) {
     tween.play();
     return () => {
+      tween.kill();
       split.revert();
     };
   }
@@ -138,6 +143,7 @@ function runIntroAwareAnimation(
 
   return () => {
     window.removeEventListener("home-intro-complete", handler);
+    tween.kill();
     split.revert();
   };
 }
@@ -171,6 +177,7 @@ function runScrollAnimation(
   );
 
   return () => {
+    tween.kill();
     split.revert();
     tween.scrollTrigger?.kill();
   };

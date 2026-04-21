@@ -21,6 +21,7 @@ export default function Nav() {
   const socialsRef = useRef<HTMLDivElement | null>(null);
   const lineRef = useRef<HTMLDivElement | null>(null);
   const pathname = usePathname();
+  const { contextSafe } = useGSAP({ scope: navRef });
 
   const runAnimation = (delay = 0) => {
     if (!navRef.current || hasAnimatedRef.current) {
@@ -41,7 +42,7 @@ export default function Nav() {
       statusRef.current,
       sitemapRef.current,
       socialsRef.current,
-    ].filter(Boolean);
+    ].filter((item): item is HTMLDivElement => Boolean(item));
 
     gsap.set(items, { willChange: "transform, opacity" });
     if (lineRef.current) {
@@ -73,6 +74,13 @@ export default function Nav() {
         "<"
       );
     }
+
+    tl.eventCallback("onComplete", () => {
+      gsap.set(items, { clearProps: "willChange" });
+      if (lineRef.current) {
+        gsap.set(lineRef.current, { clearProps: "willChange" });
+      }
+    });
   };
 
   useGSAP(
@@ -82,11 +90,14 @@ export default function Nav() {
         typeof window !== "undefined"
           ? sessionStorage.getItem(INTRO_LOADER_SESSION_KEY)
           : null;
+      const runAnimationSafe = contextSafe((delay = 0) => {
+        runAnimation(delay);
+      });
 
       if (isHome && !loaderPlayed) {
         if (typeof window !== "undefined") {
           const handler = () => {
-            runAnimation(0);
+            runAnimationSafe(0);
           };
           window.addEventListener("home-intro-complete", handler, {
             once: true,
@@ -98,7 +109,7 @@ export default function Nav() {
         return;
       }
 
-      runAnimation(1);
+      runAnimationSafe(1);
     },
     { scope: navRef, dependencies: [pathname], revertOnUpdate: true }
   );

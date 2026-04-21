@@ -63,11 +63,13 @@ function SplitTextOnScroll({
       });
 
       return () => {
+        tween.kill();
         st.kill();
+        gsap.set(split.chars, { clearProps: "willChange" });
         split.revert();
       };
     },
-    { scope: container }
+    { scope: container, dependencies: [delay, start], revertOnUpdate: true }
   );
 
   return (
