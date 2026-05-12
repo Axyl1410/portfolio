@@ -73,7 +73,9 @@ export default function Home() {
             </SplitWordsOnScroll>
           </h1>
           <div className="flex" ref={buttonRef}>
-            <Button className="uppercase">truonggiang.axyl@gmail.com</Button>
+            <Button className="p-1.5 uppercase">
+              truonggiang.axyl@gmail.com
+            </Button>
           </div>
         </div>
 

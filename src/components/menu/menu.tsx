@@ -7,6 +7,7 @@ import {
   type MenuLinkClickHandler,
   MenuOverlayContent,
 } from "@/components/menu/menu-overlay-content";
+import { StaggerChars } from "@/components/ui/stagger-chars";
 import { gsap, useGSAP } from "@/lib/gsap-client";
 import { INTRO_LOADER_SESSION_KEY } from "@/lib/intro-loader";
 import { pageAnimationFromMenu } from "@/utils/page-animation";
@@ -148,7 +149,7 @@ export default function Menu() {
       <button
         aria-expanded={isOpen}
         aria-label={isOpen ? "Close menu" : "Open menu"}
-        className="u-menu fixed right-0 bottom-0 z-50 cursor-pointer rounded-full border border-current bg-white font-medium text-current transition-none"
+        className="group u-menu fixed right-0 bottom-0 z-50 cursor-pointer rounded-full border border-current bg-white font-medium text-current transition-none"
         onClick={() => setIsOpen((prev) => !prev)}
         ref={buttonRef}
         style={{ opacity: 0 }}
@@ -159,13 +160,13 @@ export default function Menu() {
             className="absolute top-0 left-0 flex h-full w-full items-center justify-center"
             ref={menuTextRef}
           >
-            Menu
+            <StaggerChars text="Menu" />
           </span>
           <span
             className="absolute top-0 left-0 flex h-full w-full translate-y-full items-center justify-center"
             ref={closeTextRef}
           >
-            Close
+            <StaggerChars text="Close" />
           </span>
         </div>
       </button>

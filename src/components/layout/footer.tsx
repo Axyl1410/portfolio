@@ -21,7 +21,9 @@ export default function Footer() {
           </div>
 
           <div className="u-footer-backtop-header relative flex flex-col pt-[1em]">
-            <Button className="whitespace-nowrap uppercase">Back to top</Button>
+            <Button className="whitespace-nowrap p-1.5 uppercase">
+              Back to top
+            </Button>
           </div>
 
           <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-px bg-(--color-border)" />

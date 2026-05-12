@@ -1,86 +1,23 @@
 "use client";
 
 import type React from "react";
-import { useRef } from "react";
-import { gsap, useGSAP } from "@/lib/gsap-client";
+import { StaggerChars } from "@/components/ui/stagger-chars";
 import { cn } from "@/lib/utils";
 
 type ButtonProps = React.ComponentProps<"button">;
 
-function Button({
-  className,
-  children,
-  onMouseEnter,
-  onMouseLeave,
-  ...props
-}: ButtonProps) {
-  const topLabelRef = useRef<HTMLSpanElement | null>(null);
-  const bottomLabelRef = useRef<HTMLSpanElement | null>(null);
-  const { contextSafe } = useGSAP();
-
-  const handleMouseEnter: React.MouseEventHandler<HTMLButtonElement> =
-    contextSafe((e) => {
-      if (topLabelRef.current && bottomLabelRef.current) {
-        gsap.killTweensOf([topLabelRef.current, bottomLabelRef.current]);
-
-        gsap.to(topLabelRef.current, {
-          yPercent: -100,
-          duration: 0.3,
-          ease: "power2.out",
-        });
-
-        gsap.to(bottomLabelRef.current, {
-          yPercent: -100,
-          duration: 0.3,
-          ease: "power2.out",
-        });
-      }
-
-      onMouseEnter?.(e);
-    });
-
-  const handleMouseLeave: React.MouseEventHandler<HTMLButtonElement> =
-    contextSafe((e) => {
-      if (topLabelRef.current && bottomLabelRef.current) {
-        gsap.killTweensOf([topLabelRef.current, bottomLabelRef.current]);
-
-        gsap.to(topLabelRef.current, {
-          yPercent: 0,
-          duration: 0.3,
-          ease: "power2.inOut",
-        });
-
-        gsap.to(bottomLabelRef.current, {
-          yPercent: 0,
-          duration: 0.3,
-          ease: "power2.inOut",
-        });
-      }
-
-      onMouseLeave?.(e);
-    });
+function Button({ className, children, ...props }: ButtonProps) {
+  const text = typeof children === "string" ? children : null;
 
   return (
     <button
       className={cn(
-        "u-pill bg-transparent transition-colors duration-300 hover:bg-black hover:text-white",
+        "group u-pill flex items-center justify-center bg-transparent transition-colors duration-300 hover:bg-black hover:text-white",
         className
       )}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
       {...props}
     >
-      <span className="relative inline-block overflow-hidden align-middle">
-        <span className="block" ref={topLabelRef}>
-          {children}
-        </span>
-        <span
-          className="pointer-events-none absolute top-0 left-0 block translate-y-full"
-          ref={bottomLabelRef}
-        >
-          {children}
-        </span>
-      </span>
+      {text ? <StaggerChars text={text} /> : children}
     </button>
   );
 }

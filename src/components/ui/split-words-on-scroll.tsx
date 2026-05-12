@@ -1,6 +1,5 @@
 "use client";
 
-import type { ScrollTrigger as ScrollTriggerType } from "gsap/ScrollTrigger";
 import type React from "react";
 import { useRef } from "react";
 import { gsap, SplitText, useGSAP } from "@/lib/gsap-client";
@@ -8,84 +7,140 @@ import { INTRO_LOADER_SESSION_KEY } from "@/lib/intro-loader";
 import { cn } from "@/lib/utils";
 import { prefersReducedMotion } from "@/utils/motion";
 
-type SplitWordsOnScrollProps = React.HTMLAttributes<HTMLDivElement> & {
+type SplitVariant = "lines" | "words" | "chars";
+
+const splitConfig: Record<SplitVariant, { duration: number; stagger: number }> =
+  {
+    lines: { duration: 0.8, stagger: 0.08 },
+    words: { duration: 0.6, stagger: 0.06 },
+    chars: { duration: 0.4, stagger: 0.01 },
+  };
+
+const typesToSplit: Record<SplitVariant, string> = {
+  lines: "lines",
+  words: "lines,words",
+  chars: "lines,words,chars",
+};
+
+type MaskedTextRevealProps = React.HTMLAttributes<HTMLDivElement> & {
+  variant?: SplitVariant;
   delay?: number;
   start?: string;
-  end?: string;
   waitForIntro?: boolean;
 };
 
-function SplitWordsOnScroll({
+function createIntroTween(
+  targets: Element[],
+  loaderPlayed: boolean,
+  introPlayedRef: React.MutableRefObject<boolean>,
+  introHandlerRef: { current: (() => void) | null }
+) {
+  const effectiveDelay = loaderPlayed ? 0.8 : 0;
+  const tween = gsap.from(targets, {
+    yPercent: 110,
+    duration: 0.8,
+    ease: "power4.out",
+    stagger: 0.08,
+    delay: effectiveDelay,
+    paused: true,
+    onComplete() {
+      introPlayedRef.current = true;
+    },
+  });
+
+  if (loaderPlayed) {
+    tween.play();
+  } else {
+    if (introHandlerRef.current) {
+      window.removeEventListener(
+        "home-intro-complete",
+        introHandlerRef.current
+      );
+    }
+    introHandlerRef.current = () => tween.play();
+    window.addEventListener("home-intro-complete", introHandlerRef.current, {
+      once: true,
+    });
+  }
+
+  return tween;
+}
+
+function MaskedTextReveal({
   className,
   children,
+  variant = "words",
   delay = 0,
   start = "top 85%",
-  end = "bottom 60%",
   waitForIntro = false,
   ...props
-}: SplitWordsOnScrollProps) {
+}: MaskedTextRevealProps) {
   const container = useRef<HTMLDivElement | null>(null);
+  const introPlayed = useRef(false);
+  const introHandlerRef = useRef<(() => void) | null>(null);
 
   useGSAP(
     () => {
       const el = container.current;
-      if (!el) {
+      if (!el || prefersReducedMotion()) {
         return;
       }
 
-      if (prefersReducedMotion()) {
-        return;
-      }
+      const loaderPlayed = !!sessionStorage.getItem(INTRO_LOADER_SESSION_KEY);
+      const config = splitConfig[variant];
 
-      // Normalize line-height so SplitText measurements match the visual glyph height
-      gsap.set(el, { lineHeight: "1em" });
+      const split = SplitText.create(el, {
+        type: typesToSplit[variant],
+        autoSplit: true,
+        mask: "lines",
+        linesClass: "line",
+        wordsClass: "word",
+        charsClass: "char",
+        onSplit(self: SplitText) {
+          const targets = self[variant] as Element[];
 
-      const split = new SplitText(el, {
-        type: "words",
-        wordsClass: "u-split-word",
+          if (waitForIntro) {
+            if (introPlayed.current) {
+              gsap.set(targets, { yPercent: 0 });
+              return;
+            }
+            return createIntroTween(
+              targets,
+              loaderPlayed,
+              introPlayed,
+              introHandlerRef
+            );
+          }
+
+          return gsap.from(targets, {
+            yPercent: 110,
+            duration: config.duration,
+            ease: "expo.out",
+            stagger: config.stagger,
+            delay,
+            scrollTrigger: {
+              trigger: el,
+              start: `clamp(${start})`,
+              once: true,
+            },
+          });
+        },
       });
-      const words = split.words ?? [];
-      if (!words.length) {
-        split.revert();
-        return;
-      }
 
-      const innerWords: HTMLElement[] = [];
-      for (const word of words) {
-        // Ensure each word wrapper behaves like a tight mask around the text
-        gsap.set(word, {
-          overflow: "hidden",
-          display: "inline-block",
-          verticalAlign: "top",
-        });
-
-        const inner = document.createElement("div");
-        inner.className = "u-split-word-inner";
-        while (word.firstChild) {
-          inner.appendChild(word.firstChild);
+      return () => {
+        if (introHandlerRef.current) {
+          window.removeEventListener(
+            "home-intro-complete",
+            introHandlerRef.current
+          );
+          introHandlerRef.current = null;
         }
-        word.appendChild(inner);
-        innerWords.push(inner);
-      }
-
-      const loaderPlayed =
-        typeof window !== "undefined"
-          ? sessionStorage.getItem(INTRO_LOADER_SESSION_KEY)
-          : null;
-
-      if (waitForIntro) {
-        return runIntroAwareAnimation(innerWords, split, !!loaderPlayed);
-      }
-
-      return runScrollAnimation(innerWords, split, el, {
-        delay,
-        start,
-        end,
-      });
+        split.revert();
+      };
     },
     {
       scope: container,
-      dependencies: [delay, start, end, waitForIntro],
+      dependencies: [variant, delay, start, waitForIntro],
       revertOnUpdate: true,
     }
   );
@@ -97,90 +152,7 @@ function SplitWordsOnScroll({
   );
 }
 
-function runIntroAwareAnimation(
-  innerWords: HTMLElement[],
-  split: SplitText,
-  loaderPlayed: boolean
-) {
-  const effectiveDelay = loaderPlayed ? 0.8 : 0;
+const SplitWordsOnScroll = MaskedTextReveal;
 
-  const tween = gsap.fromTo(
-    innerWords,
-    {
-      y: 100,
-      rotationZ: 12,
-    },
-    {
-      y: 0,
-      rotationZ: 0,
-      duration: 0.75,
-      ease: "power3.out",
-      stagger: 0.08,
-      delay: effectiveDelay,
-      paused: true,
-    }
-  );
-
-  if (loaderPlayed) {
-    tween.play();
-    return () => {
-      tween.kill();
-      split.revert();
-    };
-  }
-
-  if (typeof window === "undefined") {
-    split.revert();
-    return;
-  }
-
-  const handler = () => {
-    tween.play();
-  };
-  window.addEventListener("home-intro-complete", handler, {
-    once: true,
-  });
-
-  return () => {
-    window.removeEventListener("home-intro-complete", handler);
-    tween.kill();
-    split.revert();
-  };
-}
-
-function runScrollAnimation(
-  innerWords: HTMLElement[],
-  split: SplitText,
-  el: HTMLDivElement,
-  opts: { delay: number; start: string; end: string }
-) {
-  const tween = gsap.fromTo(
-    innerWords,
-    {
-      y: 24,
-      rotationZ: 12,
-    },
-    {
-      y: 0,
-      rotationZ: 0,
-      duration: 0.8,
-      ease: "power3.out",
-      stagger: 0.08,
-      delay: opts.delay,
-      scrollTrigger: {
-        trigger: el,
-        start: opts.start,
-        end: opts.end,
-        once: true,
-      } as ScrollTriggerType["vars"],
-    }
-  );
-
-  return () => {
-    tween.kill();
-    split.revert();
-    tween.scrollTrigger?.kill();
-  };
-}
-
-export { SplitWordsOnScroll };
+export { MaskedTextReveal, SplitWordsOnScroll };
+export type { MaskedTextRevealProps, SplitVariant };
