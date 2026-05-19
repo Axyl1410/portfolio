@@ -60,6 +60,7 @@ export default function Home() {
     <>
       <div
         className="flex flex-1 flex-col"
+        data-intro-content
         ref={contentRef}
         style={{ opacity: 0 }}
       >

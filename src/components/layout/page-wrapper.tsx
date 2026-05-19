@@ -5,7 +5,10 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { Toaster } from "sileo";
 import { gsap, useGSAP } from "@/lib/gsap-client";
-import { INTRO_LOADER_SESSION_KEY } from "@/lib/intro-loader";
+import {
+  clearIntroPending,
+  INTRO_LOADER_SESSION_KEY,
+} from "@/lib/intro-loader";
 
 const PageWrapper = ({ children }: { children: React.ReactNode }) => {
   const container = useRef<HTMLDivElement>(null);
@@ -15,6 +18,7 @@ const PageWrapper = ({ children }: { children: React.ReactNode }) => {
     const loaderPlayed = sessionStorage.getItem(INTRO_LOADER_SESSION_KEY);
     if (loaderPlayed) {
       document.body.style.background = "black";
+      clearIntroPending();
     }
   }, []);
 
@@ -27,8 +31,8 @@ const PageWrapper = ({ children }: { children: React.ReactNode }) => {
       const isHome = pathname === "/";
       const loaderPlayed = sessionStorage.getItem(INTRO_LOADER_SESSION_KEY);
 
-      // On home with loader not yet played: set visible immediately,
-      // the loader in page.tsx handles revealing content
+      // Home intro: show wrapper (loader lives inside) but keep chrome hidden via
+      // html.intro-pending CSS until home-intro-complete
       if (isHome && !loaderPlayed) {
         gsap.set(container.current, { opacity: 1 });
         return;

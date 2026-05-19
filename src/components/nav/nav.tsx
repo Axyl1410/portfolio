@@ -31,11 +31,11 @@ export default function Nav() {
     hasAnimatedRef.current = true;
 
     if (prefersReducedMotion()) {
-      gsap.set(navRef.current, { opacity: 1 });
+      gsap.set(navRef.current, { opacity: 1, visibility: "visible" });
       return;
     }
 
-    gsap.set(navRef.current, { opacity: 1 });
+    gsap.set(navRef.current, { opacity: 1, visibility: "visible" });
 
     const items = [
       nameRef.current,

@@ -1,8 +1,14 @@
 import Image from "next/image";
 import { useMemo, useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap-client";
-import { INTRO_LOADER_SESSION_KEY } from "@/lib/intro-loader";
+import {
+  clearIntroPending,
+  INTRO_LOADER_SESSION_KEY,
+  markIntroPending,
+  markIntroReady,
+} from "@/lib/intro-loader";
 import { prefersReducedMotion } from "@/utils/motion";
+import { waitForImages } from "@/utils/wait-for-images";
 
 interface LoaderImage {
   src: string;
@@ -22,6 +28,20 @@ function setElementsVisible(elements: (HTMLElement | null)[], opacity: number) {
       gsap.set(el, { opacity });
     }
   }
+}
+
+const CLIP_HIDDEN = "inset(50% 50% 50% 50%)";
+const CLIP_REVEALED = "inset(0% 0% 0% 0%)";
+
+function setupLoaderPhotos(photos: NodeListOf<Element>) {
+  photos.forEach((photo, index) => {
+    gsap.set(photo, {
+      opacity: 1,
+      zIndex: index,
+      clipPath: index === 0 ? "none" : CLIP_HIDDEN,
+      willChange: index > 0 ? "clip-path" : "auto",
+    });
+  });
 }
 
 function getLoaderPositions(loaderEl: HTMLDivElement) {
@@ -55,8 +75,8 @@ function createLoaderTimeline(
 ) {
   const tl = gsap.timeline();
 
-  // Get all image elements to control opacity
   const photos = loaderEl.querySelectorAll(".u-loader-photo");
+  setupLoaderPhotos(photos);
 
   const revealOnce = () => {
     tl.to(loaderEl, {
@@ -70,16 +90,21 @@ function createLoaderTimeline(
 
   revealOnce();
 
-  // Loop through images to transition opacity instead of changing src
   for (let i = 1; i < imageCount; i += 1) {
-    tl.to(loaderEl, { duration: 0.5, ease: "power3.inOut" });
-    // Set current image to visible and previous image to hidden
-    // Use '<' position parameter to run both commands simultaneously
-    tl.set(photos[i], { opacity: 1, ease: "power2.inOut" });
-    tl.set(photos[i - 1], { opacity: 0, ease: "power2.inOut" }, "<");
+    tl.to(loaderEl, { duration: 0.25, ease: "power3.inOut" });
+    tl.fromTo(
+      photos[i],
+      { clipPath: CLIP_HIDDEN },
+      {
+        clipPath: CLIP_REVEALED,
+        duration: 0.65,
+        ease: "power3.inOut",
+      }
+    );
+    tl.set(photos[i - 1], { opacity: 0 }, "<0.55");
   }
 
-  tl.to(loaderEl, { duration: 0.75 }).to(loaderEl, {
+  tl.to(loaderEl, { duration: 0.4 }).to(loaderEl, {
     x: positions.cssOffsetX,
     y: positions.cssOffsetY,
     scale: 1,
@@ -92,7 +117,7 @@ function createLoaderTimeline(
     },
   });
 
-  tl.addLabel("reveal").to(
+  tl.addLabel("reveal").call(clearIntroPending, undefined, "reveal").to(
     revealTargets,
     {
       opacity: 1,
@@ -139,6 +164,7 @@ function initializeLoader(
   const reduceMotion = prefersReducedMotion();
 
   if (hasPlayed || reduceMotion) {
+    clearIntroPending();
     setElementsVisible([contentEl, navEl, menuButtonEl, textEl], 1);
     document.body.style.background = "black";
     if (!hasPlayed) {
@@ -147,6 +173,7 @@ function initializeLoader(
     return;
   }
 
+  markIntroPending();
   setElementsVisible([navEl, menuButtonEl, contentEl, textEl], 0);
 
   const positions = getLoaderPositions(loaderEl);
@@ -158,8 +185,10 @@ function initializeLoader(
     clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
   });
 
-  const revealTargets = [menuButtonEl, contentEl].filter(
-    (el): el is HTMLDivElement | HTMLButtonElement => Boolean(el)
+  markIntroReady();
+
+  const revealTargets = [navEl, menuButtonEl, contentEl].filter(
+    (el): el is HTMLElement => Boolean(el)
   );
 
   return createLoaderTimeline(
@@ -197,11 +226,39 @@ export default function HomeIntroLoader({
         return;
       }
 
-      const tl = initializeLoader(loaderEl, contentEl, textEl, {
-        imageCount: normalizedImages.length,
-      });
+      const hasPlayed = sessionStorage.getItem(INTRO_LOADER_SESSION_KEY);
+      const reduceMotion = prefersReducedMotion();
+
+      if (!(hasPlayed || reduceMotion)) {
+        markIntroPending();
+      }
+
+      let cancelled = false;
+      let tl: gsap.core.Timeline | undefined;
+
+      const start = async () => {
+        if (hasPlayed || reduceMotion) {
+          // Skip preload when intro won't run
+        } else {
+          await waitForImages(loaderEl, {
+            timeout: 10_000,
+            minCount: normalizedImages.length,
+          });
+        }
+
+        if (cancelled) {
+          return;
+        }
+
+        tl = initializeLoader(loaderEl, contentEl, textEl, {
+          imageCount: normalizedImages.length,
+        });
+      };
+
+      start().catch(() => undefined);
 
       return () => {
+        cancelled = true;
         tl?.kill();
       };
     },
@@ -221,6 +278,7 @@ export default function HomeIntroLoader({
             <Image
               alt={img.alt ?? imageAlt}
               className="u-loader-photo object-cover"
+              data-loader-index={index}
               draggable={false}
               fetchPriority="high"
               fill
@@ -228,9 +286,9 @@ export default function HomeIntroLoader({
               priority
               src={img.src}
               style={{
-                opacity: index === 0 ? 1 : 0,
                 position: "absolute",
                 inset: 0,
+                zIndex: index,
               }}
             />
           ))}
