@@ -10,9 +10,11 @@ import {
 
 const introPendingScript = `(() => {
   try {
-  if (sessionStorage.getItem("${INTRO_LOADER_SESSION_KEY}") !== "true") {
-    document.documentElement.classList.add("${INTRO_PENDING_CLASS}");
-  }
+    var p = location.pathname || "";
+    if (p !== "/" && p !== "") return;
+    if (sessionStorage.getItem("${INTRO_LOADER_SESSION_KEY}") !== "true") {
+      document.documentElement.classList.add("${INTRO_PENDING_CLASS}");
+    }
   } catch {}
 })();`;
 

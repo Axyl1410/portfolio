@@ -90,6 +90,16 @@ export default function Nav() {
         typeof window !== "undefined"
           ? sessionStorage.getItem(INTRO_LOADER_SESSION_KEY)
           : null;
+
+      // Allow entrance animation again on each route; revertOnUpdate can leave
+      // opacity stuck if we never reset this.
+      hasAnimatedRef.current = false;
+
+      // Restore nav when leaving home mid-intro (loader had set opacity 0).
+      if (!(isHome && !loaderPlayed) && navRef.current) {
+        gsap.set(navRef.current, { opacity: 1, visibility: "visible" });
+      }
+
       const runAnimationSafe = contextSafe((delay = 0) => {
         runAnimation(delay);
       });

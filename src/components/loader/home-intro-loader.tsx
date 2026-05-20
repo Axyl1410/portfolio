@@ -7,6 +7,7 @@ import {
   markIntroPending,
   markIntroReady,
 } from "@/lib/intro-loader";
+import { LOADER_IMAGE_SIZES } from "@/utils/image-sizes";
 import { prefersReducedMotion } from "@/utils/motion";
 import { waitForImages } from "@/utils/wait-for-images";
 
@@ -21,10 +22,6 @@ interface HomeIntroLoaderProps {
   imageAlt?: string;
   images?: LoaderImage[];
 }
-
-/** Matches loader.css width: 50vw (≤540px), title*2.25 (≤860px), title*3.25 (desktop). */
-const LOADER_IMAGE_SIZES =
-  "(max-width: 540px) 50vw, (max-width: 860px) 42vw, min(35vw, 31.25rem)";
 
 function setElementsVisible(elements: (HTMLElement | null)[], opacity: number) {
   for (const el of elements) {
@@ -264,6 +261,16 @@ export default function HomeIntroLoader({
       return () => {
         cancelled = true;
         tl?.kill();
+        if (sessionStorage.getItem(INTRO_LOADER_SESSION_KEY) !== "true") {
+          clearIntroPending();
+          const navEl = document.querySelector<HTMLElement>("nav");
+          const menuButtonEl =
+            document.querySelector<HTMLButtonElement>(".u-menu");
+          gsap.set([navEl, menuButtonEl].filter(Boolean), {
+            opacity: 1,
+            clearProps: "opacity",
+          });
+        }
       };
     },
     { dependencies: [normalizedImages.length] }

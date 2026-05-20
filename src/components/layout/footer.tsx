@@ -37,7 +37,7 @@ export default function Footer() {
               awesome.
             </p>
             <div className="flex">
-              <Button className="whitespace-nowrap uppercase">
+              <Button className="whitespace-nowrap p-1.5 uppercase">
                 truonggiang.axyl@gmail.com
               </Button>
             </div>

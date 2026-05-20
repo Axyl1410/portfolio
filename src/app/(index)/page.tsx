@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { SplitWordsOnScroll } from "@/components/ui/split-words-on-scroll";
 import { gsap, useGSAP } from "@/lib/gsap-client";
 import { INTRO_LOADER_SESSION_KEY } from "@/lib/intro-loader";
+import { PROJECT_CARD_IMAGE_SIZES } from "@/utils/image-sizes";
 
 export default function Home() {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -91,6 +92,7 @@ export default function Home() {
                   alt="Project 1"
                   draggable={false}
                   fill
+                  sizes={PROJECT_CARD_IMAGE_SIZES}
                   src="/images/test.webp"
                 />
               </div>

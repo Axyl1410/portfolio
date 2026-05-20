@@ -18,9 +18,12 @@ const PageWrapper = ({ children }: { children: React.ReactNode }) => {
     const loaderPlayed = sessionStorage.getItem(INTRO_LOADER_SESSION_KEY);
     if (loaderPlayed) {
       document.body.style.background = "black";
+    }
+    // Remove intro white overlay when not on first-run home intro
+    if (pathname !== "/" || loaderPlayed) {
       clearIntroPending();
     }
-  }, []);
+  }, [pathname]);
 
   useGSAP(
     () => {
