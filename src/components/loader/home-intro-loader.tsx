@@ -22,6 +22,10 @@ interface HomeIntroLoaderProps {
   images?: LoaderImage[];
 }
 
+/** Matches loader.css width: 50vw (≤540px), title*2.25 (≤860px), title*3.25 (desktop). */
+const LOADER_IMAGE_SIZES =
+  "(max-width: 540px) 50vw, (max-width: 860px) 42vw, min(35vw, 31.25rem)";
+
 function setElementsVisible(elements: (HTMLElement | null)[], opacity: number) {
   for (const el of elements) {
     if (el) {
@@ -284,6 +288,7 @@ export default function HomeIntroLoader({
               fill
               key={img.src}
               priority
+              sizes={LOADER_IMAGE_SIZES}
               src={img.src}
               style={{
                 position: "absolute",
