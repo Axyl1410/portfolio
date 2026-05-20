@@ -149,7 +149,7 @@ export default function Menu() {
       <button
         aria-expanded={isOpen}
         aria-label={isOpen ? "Close menu" : "Open menu"}
-        className="group u-menu fixed right-0 bottom-0 z-50 cursor-pointer rounded-full border border-current bg-white font-medium text-current transition-none"
+        className="group u-menu fixed right-0 bottom-0 z-60 cursor-pointer rounded-full border border-current bg-white font-medium text-current transition-none"
         onClick={() => setIsOpen((prev) => !prev)}
         ref={buttonRef}
         style={{ opacity: 0 }}
@@ -173,7 +173,7 @@ export default function Menu() {
 
       <div
         aria-hidden={!isOpen}
-        className="u-menu-overlay u-container fixed inset-0 z-40 hidden bg-black"
+        className="u-menu-overlay u-container fixed inset-0 z-50 hidden bg-black"
         ref={menuOverlayRef}
       >
         <MenuOverlayContent onLinkClick={handleLinkClick} />
@@ -181,7 +181,7 @@ export default function Menu() {
 
       <div
         aria-hidden
-        className="u-menu-nav-overlay pointer-events-none fixed inset-0 z-55 hidden bg-white"
+        className="u-menu-nav-overlay pointer-events-none fixed inset-0 z-70 hidden bg-white"
         ref={whiteOverlayRef}
         style={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" }}
       />

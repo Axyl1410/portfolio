@@ -39,7 +39,8 @@ html.intro-pending:not(.intro-ready) .u-loader-image {
         calc((var(--row-gap) * 3) + 0.725em + 0.3em + ((0.85em * 2) * 1.36))
       )
       scale(1) rotate(0.001deg) translateZ(0);
-    z-index: 50;
+    /* Below menu (mobile) and menu overlay; above intro white splash (z-40) */
+    z-index: 45;
 
     /* Performance */
     will-change: transform;
