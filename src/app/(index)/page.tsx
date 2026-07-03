@@ -1,14 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import { useRef } from "react";
+import { LatestProjectCard } from "@/components/home/latest-project-card";
 import HomeIntroLoader from "@/components/loader/home-intro-loader";
 import { Button } from "@/components/ui/button";
 import { SplitWordsOnScroll } from "@/components/ui/split-words-on-scroll";
 import { gsap, useGSAP } from "@/lib/gsap-client";
 import { INTRO_LOADER_SESSION_KEY } from "@/lib/intro-loader";
-import { PROJECT_CARD_IMAGE_SIZES } from "@/utils/image-sizes";
-
 export default function Home() {
   const contentRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement | null>(null);
@@ -86,28 +84,7 @@ export default function Home() {
             <div className="font-medium text-[1.25em] leading-[1.36]">
               Latest Project
             </div>
-            <div className="u-project-card">
-              <div className="relative aspect-4/3 w-[12em]">
-                <Image
-                  alt="Project 1"
-                  draggable={false}
-                  fill
-                  sizes={PROJECT_CARD_IMAGE_SIZES}
-                  src="/images/test.webp"
-                />
-              </div>
-              <div className="u-bottom-content">
-                <div className="flex flex-col gap-[0.75em]">
-                  <div className="u-meta">Coming Soon</div>
-                  <div className="line-clamp-2 min-h-[calc((0.8725em*1.36)*2)] text-[1.25em] leading-[1.36]">
-                    Coming Soon...
-                  </div>
-                </div>
-                <div className="flex">
-                  <div className="u-pill">view case</div>
-                </div>
-              </div>
-            </div>
+            <LatestProjectCard />
           </div>
           <div className="u-meta">Use menu to explore</div>
         </div>

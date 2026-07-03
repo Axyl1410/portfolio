@@ -7,6 +7,8 @@ interface AnimatedLinkProps extends LinkProps {
   children: ReactNode;
   className?: string;
   onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
+  rel?: string;
+  target?: string;
 }
 
 export const AnimatedLink = ({

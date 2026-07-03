@@ -103,6 +103,16 @@ export default function Footer() {
                 </div>
                 <div className="u-footer-text font-medium text-[0.85em] uppercase">
                   <p>Truong Giang [DEV]</p>
+                  <p className="normal-case">
+                    Motion primitives by{" "}
+                    <AnimatedLink
+                      href="https://ui.soralabs.io.vn"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Sora UI
+                    </AnimatedLink>
+                  </p>
                 </div>
               </div>
 
@@ -128,6 +138,16 @@ export default function Footer() {
 
           <div className="u-footer-text font-medium text-[0.85em] uppercase">
             <p>Truong Giang [DEV]</p>
+            <p className="normal-case">
+              Motion primitives by{" "}
+              <AnimatedLink
+                href="https://ui.soralabs.io.vn"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Sora UI
+              </AnimatedLink>
+            </p>
           </div>
 
           <div className="my-(--row-gap) h-px w-full bg-(--color-border)" />

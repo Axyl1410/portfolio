@@ -4,14 +4,27 @@
 
 Modern, animation‑driven personal portfolio built with Next.js, GSAP, and View Transitions, showcasing my work as a full‑stack developer.
 
+Featured project: **[Sora UI](https://ui.soralabs.io.vn)** — motion-first React component registry ([Product Hunt](https://www.producthunt.com/products/sora-ui)).
+
 ## Tech Stack
 
 - **Framework**: Next.js (App Router)
 - **Language**: TypeScript
 - **Styling**: CSS utilities & Tailwind css
 - **Animations**: GSAP (scroll reveals, loaders, nav, buttons)
+- **UI primitives**: [Sora UI](https://ui.soralabs.io.vn) (`@soralabs` shadcn registry — install-ready for Phase 2)
 - **Page Transitions**: View Transitions API
 - **Deployment Target**: Cloudflare (via OpenNext)
+
+## Sora UI registry
+
+This project registers the `@soralabs` namespace for the shadcn CLI (`components.json`). Install primitives when needed:
+
+```bash
+npx shadcn@latest add @soralabs/text-effect
+```
+
+Registry URL: `https://ui.soralabs.io.vn/r/{name}.json`
 
 ## Features
 
