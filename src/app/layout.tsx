@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ViewTransitions } from "next-view-transitions";
 import "./globals.css";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import { helveticaNeue, optiRomanaRoman } from "@/lib/fonts";
 
 export const metadata: Metadata = {
@@ -47,8 +48,7 @@ export default function RootLayout({
       >
         <head />
         <body className="antialiased">
-          {/* <PageWrapper>{children}</PageWrapper> */}
-          {children}
+          <ThemeProvider>{children}</ThemeProvider>
         </body>
       </html>
     </ViewTransitions>

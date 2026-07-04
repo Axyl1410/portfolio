@@ -25,7 +25,7 @@ const WORKS = [
     titleClassName: "mr-2 select-none text-foreground blur",
   },
   {
-    description: "A motion-first component library for React",
+    description: "An open, motion-first component distribution for React",
     href: "https://ui.soralabs.io.vn",
     id: "sora-ui",
     status: "Current",

@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/navbar";
+import { IndexChrome } from "@/components/index-chrome";
 
 export default function IndexLayout({
   children,
@@ -6,11 +6,10 @@ export default function IndexLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <Navbar />
+    <IndexChrome>
       <div className="flex min-h-screen items-center justify-center text-center">
         {children}
       </div>
-    </>
+    </IndexChrome>
   );
 }

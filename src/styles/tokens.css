@@ -49,6 +49,16 @@
     --columns: 4; /* Grid columns for nav */
     --nav-col-width: 13em; /* Max width for nav items */
   }
+
+  .dark {
+    --background: #121212;
+    --foreground: var(--color-light);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-text: var(--foreground);
+    --color-border: rgba(var(--color-light-rgb), 0.2);
+    --muted: rgba(var(--color-light-rgb), 0.08);
+  }
 }
 
 @theme inline {

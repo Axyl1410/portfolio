@@ -28,8 +28,13 @@
   }
 
   body {
+    background-color: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans);
+  }
+
+  html {
+    background-color: var(--background);
   }
 
   /* Text selection (copy highlight) */
@@ -43,23 +48,24 @@
     color: var(--color-light);
   }
 
-  /* View transitions */
-  ::view-transition-group(root) {
+  /* View transitions — page nav only; theme toggle injects its own styles */
+  html:not([data-theme-transition]) ::view-transition-group(root) {
     z-index: auto !important;
   }
 
-  ::view-transition-image-pair(root) {
+  html:not([data-theme-transition]) ::view-transition-image-pair(root) {
     isolation: isolate;
     will-change: transform, opacity, scale;
     z-index: 1;
   }
 
-  ::view-transition-new(root) {
+  /* Page nav view transitions — skip while theme transition is active */
+  html:not([data-theme-transition]) ::view-transition-new(root) {
     z-index: 2;
     animation: none !important;
   }
 
-  ::view-transition-old(root) {
+  html:not([data-theme-transition]) ::view-transition-old(root) {
     z-index: 1;
     animation: none !important;
   }

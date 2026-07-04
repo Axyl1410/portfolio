@@ -28,9 +28,10 @@ export default function About() {
         >
           Sora UI
         </a>
-        , a motion-first component library for React. I like the part where
-        design meets implementation: timing, spacing, and the small details that
-        make an interface feel alive. WIPs and thoughts on{" "}
+        , an open component distribution for React—not a library, motion-first.
+        I like the part where design meets implementation: timing, spacing, and
+        the small details that make an interface feel alive. WIPs and thoughts
+        on{" "}
         <a
           className={linkClass}
           href="https://x.com/axyl1410"

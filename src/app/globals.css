@@ -28,3 +28,5 @@
 
 /* Responsive - Media queries */
 @import "../styles/responsive.css";
+
+@custom-variant dark (&:is(.dark *));
