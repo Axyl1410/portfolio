@@ -1,36 +1,24 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/site";
+
+const ROUTES = [
+  { path: "", changeFrequency: "weekly", priority: 1 },
+  { path: "/about", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/works", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/contact", changeFrequency: "monthly", priority: 0.7 },
+] as const satisfies ReadonlyArray<{
+  path: string;
+  changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
+  priority: number;
+}>;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: "https://nguyentruonggiang.id.vn",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: "https://nguyentruonggiang.id.vn/about",
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: "https://nguyentruonggiang.id.vn/services",
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: "https://nguyentruonggiang.id.vn/projects",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: "https://nguyentruonggiang.id.vn/contact",
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-  ];
+  const lastModified = new Date();
+
+  return ROUTES.map(({ path, changeFrequency, priority }) => ({
+    url: `${SITE_URL}${path}`,
+    lastModified,
+    changeFrequency,
+    priority,
+  }));
 }
