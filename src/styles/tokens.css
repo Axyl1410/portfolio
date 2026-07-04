@@ -30,10 +30,13 @@
     --color-text-light: var(--color-light);
     --color-alert-error: var(--color-primary);
     --color-alert-success: #46d054;
+    --muted: rgba(var(--color-dark-rgb), 0.06);
 
     /* Typography */
     --title-size: clamp(5em, 7.5vw, 7.5em);
-    --font-pp-neue-montreal: "PP Neue Montreal", sans-serif;
+    --font-sans:
+      var(--font-helvetica-neue), ui-sans-serif, system-ui, sans-serif;
+    --font-display: var(--font-opti-romana), ui-serif, Georgia, serif;
 
     /* Spacing */
     --col-gap: calc(var(--title-size) * 0.2);
@@ -51,5 +54,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-pp-neue-montreal: var(--font-pp-neue-montreal);
+  --color-muted: var(--muted);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
 }

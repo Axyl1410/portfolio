@@ -112,11 +112,6 @@
       width: 50vw;
     }
 
-    h1,
-    h2 {
-      font-size: calc((100vw - (var(--col-gap) * 2)) * 0.078) !important;
-    }
-
     .u-pill {
       font-size: 1em;
     }

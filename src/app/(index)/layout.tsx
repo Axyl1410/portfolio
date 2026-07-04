@@ -1,5 +1,4 @@
-import Menu from "@/components/menu/menu";
-import Nav from "@/components/nav/nav";
+import { Navbar } from "@/components/navbar";
 
 export default function IndexLayout({
   children,
@@ -7,10 +6,11 @@ export default function IndexLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="u-container u-gap flex min-h-screen flex-col">
-      <Nav />
-      <main className="flex flex-1 flex-col">{children}</main>
-      <Menu />
-    </div>
+    <>
+      <Navbar />
+      <div className="flex min-h-screen items-center justify-center text-center">
+        {children}
+      </div>
+    </>
   );
 }

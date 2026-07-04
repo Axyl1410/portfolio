@@ -1,22 +1,7 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { ViewTransitions } from "next-view-transitions";
 import "./globals.css";
-import PageWrapper from "@/components/layout/page-wrapper";
-import {
-  INTRO_LOADER_SESSION_KEY,
-  INTRO_PENDING_CLASS,
-} from "@/lib/intro-loader";
-
-const introPendingScript = `(() => {
-  try {
-    var p = location.pathname || "";
-    if (p !== "/" && p !== "") return;
-    if (sessionStorage.getItem("${INTRO_LOADER_SESSION_KEY}") !== "true") {
-      document.documentElement.classList.add("${INTRO_PENDING_CLASS}");
-    }
-  } catch {}
-})();`;
+import { helveticaNeue, optiRomanaRoman } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: {
@@ -55,19 +40,15 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html lang="en" suppressHydrationWarning>
-        <head>
-          <Script id="intro-pending" strategy="beforeInteractive">
-            {introPendingScript}
-          </Script>
-          <link
-            fetchPriority="high"
-            href="https://fonts.cdnfonts.com/css/pp-neue-montreal"
-            rel="stylesheet"
-          />
-        </head>
+      <html
+        className={`${helveticaNeue.variable} ${optiRomanaRoman.variable}`}
+        lang="en"
+        suppressHydrationWarning
+      >
+        <head />
         <body className="antialiased">
-          <PageWrapper>{children}</PageWrapper>
+          {/* <PageWrapper>{children}</PageWrapper> */}
+          {children}
         </body>
       </html>
     </ViewTransitions>
