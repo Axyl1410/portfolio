@@ -3,6 +3,7 @@ import { ViewTransitions } from "next-view-transitions";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { helveticaNeue, optiRomanaRoman } from "@/lib/fonts";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: {
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
       "Creative developer bridging the gap between design and technology",
     images: ["/og"],
   },
-  metadataBase: new URL("https://nguyentruonggiang.id.vn"),
+  metadataBase: new URL(SITE_URL),
 };
 
 export default function RootLayout({

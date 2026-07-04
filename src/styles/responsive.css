@@ -33,10 +33,6 @@
         scale(1) rotate(0.001deg);
     }
 
-    .u-project-card-container {
-      display: none;
-    }
-
     /* Footer layout: stack columns and left-align on tablet/mobile */
     .u-footer-main {
       flex-direction: column;
