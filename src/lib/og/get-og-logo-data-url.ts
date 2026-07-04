@@ -2,11 +2,13 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { SITE_URL } from "@/lib/site";
 
-const FAVICON_CANDIDATE_PATHS = [
-  path.join(process.cwd(), "src/app/favicon.ico"),
-  path.join(process.cwd(), "app/favicon.ico"),
-  path.join(process.cwd(), "public/favicon.ico"),
-] as const;
+function getFaviconCandidatePaths(): string[] {
+  return [
+    path.join(/* turbopackIgnore: true */ process.cwd(), "src/app/favicon.ico"),
+    path.join(/* turbopackIgnore: true */ process.cwd(), "app/favicon.ico"),
+    path.join(/* turbopackIgnore: true */ process.cwd(), "public/favicon.ico"),
+  ];
+}
 
 let logoDataUrlPromise: Promise<string> | undefined;
 
@@ -25,7 +27,7 @@ function getLogoMimeType(buffer: Buffer): string {
 }
 
 async function readFaviconBuffer(): Promise<Buffer> {
-  for (const filePath of FAVICON_CANDIDATE_PATHS) {
+  for (const filePath of getFaviconCandidatePaths()) {
     try {
       return await readFile(filePath);
     } catch {

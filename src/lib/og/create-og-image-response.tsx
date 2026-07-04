@@ -15,6 +15,6 @@ export async function createOgImageResponse(
   return new ImageResponse(<OgImageFrame {...content} logoSrc={logoSrc} />, {
     width: 1200,
     height: 630,
-    fonts,
+    fonts: [...fonts],
   });
 }

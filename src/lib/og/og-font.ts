@@ -8,30 +8,38 @@ export const OG_DISPLAY_FONT_FAMILY = "Opti Romana";
 const FONT_FILES = {
   body: {
     publicPath: "/fonts/HelveticaNeue/HelveticaNeueMedium.otf",
-    filePath: path.join(
-      process.cwd(),
-      "public/fonts/HelveticaNeue/HelveticaNeueMedium.otf"
-    ),
+    relativePath: "public/fonts/HelveticaNeue/HelveticaNeueMedium.otf",
     weight: 500 as const,
   },
   display: {
     publicPath: "/fonts/OPTIRomanaRoman/OPTIRomanaRoman-Normal.otf",
-    filePath: path.join(
-      process.cwd(),
-      "public/fonts/OPTIRomanaRoman/OPTIRomanaRoman-Normal.otf"
-    ),
+    relativePath: "public/fonts/OPTIRomanaRoman/OPTIRomanaRoman-Normal.otf",
     weight: 400 as const,
   },
 } as const;
 
 let fontDataPromise:
   | Promise<
-      readonly [
-        { name: string; data: ArrayBuffer; style: "normal"; weight: 500 },
-        { name: string; data: ArrayBuffer; style: "normal"; weight: 400 },
+      [
+        {
+          name: string;
+          data: ArrayBuffer;
+          style: "normal";
+          weight: 500;
+        },
+        {
+          name: string;
+          data: ArrayBuffer;
+          style: "normal";
+          weight: 400;
+        },
       ]
     >
   | undefined;
+
+function resolveProjectPath(relativePath: string): string {
+  return path.join(/* turbopackIgnore: true */ process.cwd(), relativePath);
+}
 
 function toArrayBuffer(buffer: Buffer): ArrayBuffer {
   const { buffer: arrayBuffer, byteOffset, byteLength } = buffer;
@@ -59,8 +67,14 @@ async function loadFontFile(
 export function getOgFonts() {
   if (!fontDataPromise) {
     fontDataPromise = Promise.all([
-      loadFontFile(FONT_FILES.body.filePath, FONT_FILES.body.publicPath),
-      loadFontFile(FONT_FILES.display.filePath, FONT_FILES.display.publicPath),
+      loadFontFile(
+        resolveProjectPath(FONT_FILES.body.relativePath),
+        FONT_FILES.body.publicPath
+      ),
+      loadFontFile(
+        resolveProjectPath(FONT_FILES.display.relativePath),
+        FONT_FILES.display.publicPath
+      ),
     ]).then(([body, display]) => [
       {
         name: OG_FONT_FAMILY,
