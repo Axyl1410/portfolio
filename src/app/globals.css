@@ -2,7 +2,7 @@
  * Global Styles Entry Point
  *
  * This file imports all modular stylesheets.
- * Organized by: tokens → base → utilities → components → responsive
+ * Organized by: tokens → base
  */
 
 /* Tailwind CSS */
@@ -13,13 +13,5 @@
 
 /* Base Styles - Resets and global elements */
 @import "../styles/base.css";
-
-/* Utilities - Reusable utility classes */
-@import "../styles/utilities/layout.css";
-@import "../styles/utilities/typography.css";
-@import "../styles/utilities/components.css";
-
-/* Responsive - Media queries */
-@import "../styles/responsive.css";
 
 @custom-variant dark (&:is(.dark *));

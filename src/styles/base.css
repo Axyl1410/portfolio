@@ -4,13 +4,13 @@
  */
 
 @layer base {
-  /* Hide scrollbars (keep scroll). Include Lenis containers too. */
-  :where(html, body, .lenis, .lenis *) {
+  /* Hide scrollbars (keep scroll). */
+  :where(html, body) {
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE/legacy Edge */
   }
 
-  :where(html, body, .lenis, .lenis *)::-webkit-scrollbar {
+  :where(html, body)::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera */
     width: 0;
     height: 0;
