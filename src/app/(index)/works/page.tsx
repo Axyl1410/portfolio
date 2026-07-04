@@ -31,6 +31,13 @@ const WORKS = [
     status: "Current",
     title: "Sora UI",
   },
+  {
+    description: "A browser-based font inspector for OpenType files",
+    href: "https://type.soralabs.io.vn",
+    id: "sora-type",
+    status: "Current",
+    title: "Sora Type",
+  },
 ] as const;
 
 const WORKS_COUNT = WORKS.filter((work) => "href" in work).length;
