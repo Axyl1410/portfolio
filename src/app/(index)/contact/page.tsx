@@ -81,7 +81,12 @@ function ContactClock() {
       <span>
         {dateLabel} <NumberFlow className="inline-block" value={hour} />
         :
-        <NumberFlow className="inline-block" value={minute} /> {dayPeriod}
+        <NumberFlow
+          className="inline-block"
+          format={{ minimumIntegerDigits: 2 }}
+          value={minute}
+        />{" "}
+        {dayPeriod}
       </span>{" "}
       ICT (GMT+7) Ho Chi Minh City, Vietnam
     </>
@@ -144,7 +149,9 @@ export default function Contact() {
                     delay={(index + 1) * LINE_STAGGER_S}
                   />
                   <div className="flex shrink-0 items-center gap-2 sm:gap-4">
-                    <span className="hidden sm:inline">{link.tag}</span>
+                    <span className="shrink-0 text-foreground/50 text-xs sm:text-sm">
+                      {link.tag}
+                    </span>
                     <CircleArrowOutUpRight
                       aria-hidden
                       className="size-3.5 shrink-0 text-foreground/20"
