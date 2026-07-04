@@ -8,6 +8,10 @@ import {
   LINE_STAGGER_S,
   PageTitleRule,
 } from "@/components/page-title-rule";
+import {
+  Highlight,
+  HighlightItem,
+} from "@/components/sora-ui/effects/highlight";
 import { ProgressiveBlur } from "@/components/sora-ui/effects/progressive-blur";
 import { TextScramble } from "@/components/sora-ui/texts/text-scramble";
 import { cn } from "@/lib/utils";
@@ -32,7 +36,7 @@ const WORKS = [
 const WORKS_COUNT = WORKS.filter((work) => "href" in work).length;
 
 const rowClassName =
-  "flex w-full items-center justify-between gap-3 rounded-2xl p-4 hover:bg-muted";
+  "relative z-10 flex w-full items-center justify-between gap-3 rounded-2xl p-4";
 
 const FADE_EASE = [0.19, 1, 0.22, 1] as const;
 const DESCRIPTION_FADE_DURATION_S = 1;
@@ -92,19 +96,23 @@ function WorkRow({
 
   if (!("href" in work)) {
     return (
-      <div className={cn(rowClassName, "cursor-not-allowed")}>{content}</div>
+      <HighlightItem asChild disabled value={work.id}>
+        <div className={cn(rowClassName, "cursor-not-allowed")}>{content}</div>
+      </HighlightItem>
     );
   }
 
   return (
-    <a
-      className={rowClassName}
-      href={work.href}
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      {content}
-    </a>
+    <HighlightItem asChild value={work.id}>
+      <a
+        className={rowClassName}
+        href={work.href}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {content}
+      </a>
+    </HighlightItem>
   );
 }
 
@@ -128,13 +136,21 @@ export default function Works() {
           <ProgressiveBlur className="z-10" direction="bottom" />
           <div className="scrollbar-none h-full w-full overflow-y-auto overflow-x-hidden text-sm">
             <div className="mb-10 flex w-full flex-col gap-2 pt-20">
-              {WORKS.map((work, index) => (
-                <WorkRow
-                  key={work.id}
-                  lineDelay={(index + 1) * LINE_STAGGER_S}
-                  work={work}
-                />
-              ))}
+              <Highlight
+                className="rounded-2xl bg-muted"
+                containerClassName="flex w-full flex-col gap-2"
+                exitDelay={80}
+                mode="parent"
+                trigger="hover"
+              >
+                {WORKS.map((work, index) => (
+                  <WorkRow
+                    key={work.id}
+                    lineDelay={(index + 1) * LINE_STAGGER_S}
+                    work={work}
+                  />
+                ))}
+              </Highlight>
             </div>
           </div>
         </div>

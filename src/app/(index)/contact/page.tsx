@@ -8,6 +8,10 @@ import {
   LINE_STAGGER_S,
   PageTitleRule,
 } from "@/components/page-title-rule";
+import {
+  Highlight,
+  HighlightItem,
+} from "@/components/sora-ui/effects/highlight";
 
 const CONTACT_LINKS = [
   {
@@ -109,12 +113,18 @@ export default function Contact() {
           <ContactClock />
         </div>
 
-        <div className="w-full min-w-0 shrink-0 space-y-2">
-          <div className="w-full min-w-0 space-y-2">
+        <div className="w-full min-w-0 shrink-0">
+          <Highlight
+            className="rounded-xl bg-muted"
+            containerClassName="flex w-full min-w-0 flex-col gap-2"
+            exitDelay={80}
+            mode="parent"
+            trigger="hover"
+          >
             {CONTACT_LINKS.map((link, index) => (
-              <div key={link.id}>
+              <HighlightItem asChild key={link.id} value={link.id}>
                 <a
-                  className="flex min-w-0 items-center gap-2 rounded-xl py-2 pr-2 pl-1 hover:bg-muted sm:gap-4 sm:pr-4 sm:pl-2"
+                  className="relative z-10 flex min-w-0 items-center gap-2 rounded-xl py-2 pr-2 pl-1 sm:gap-4 sm:pr-4 sm:pl-2"
                   href={link.href}
                   rel="noopener noreferrer"
                   target="_blank"
@@ -141,9 +151,9 @@ export default function Contact() {
                     />
                   </div>
                 </a>
-              </div>
+              </HighlightItem>
             ))}
-          </div>
+          </Highlight>
         </div>
       </div>
     </div>
