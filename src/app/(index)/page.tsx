@@ -42,7 +42,7 @@ export default function Home() {
       <a
         aria-label="[ui.soralabs.io.vn]"
         className={linkClass}
-        href="http://ui.soralabs.io.vn"
+        href="https://ui.soralabs.io.vn"
         rel="noopener"
         target="_blank"
       >

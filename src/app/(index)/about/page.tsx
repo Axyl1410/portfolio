@@ -22,7 +22,7 @@ export default function About() {
         building{" "}
         <a
           className={linkClass}
-          href="http://ui.soralabs.io.vn"
+          href="https://ui.soralabs.io.vn"
           rel="noopener noreferrer"
           target="_blank"
         >
