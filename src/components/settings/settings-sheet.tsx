@@ -13,14 +13,12 @@ import {
 import { setThemeWithTransition } from "@/lib/theme/set-theme-with-transition";
 
 export interface SettingsState {
-  preloader: boolean;
   showShortcuts: boolean;
   systemTheme: boolean;
   theme: "dark" | "light";
 }
 
 export const initialSettings: SettingsState = {
-  preloader: true,
   showShortcuts: true,
   systemTheme: true,
   theme: "dark",
@@ -92,16 +90,6 @@ export function SettingsSheet({
         <BottomSheetTitle>Settings</BottomSheetTitle>
         <BottomSheetPanel>
           <BottomSheetList>
-            <BottomSheetRow
-              label="preloader"
-              onClick={() =>
-                onSettingsChange((current) => ({
-                  ...current,
-                  preloader: !current.preloader,
-                }))
-              }
-              value={String(settings.preloader)}
-            />
             <BottomSheetRow
               label="shortcuts"
               onClick={() =>

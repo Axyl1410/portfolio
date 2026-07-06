@@ -16,7 +16,7 @@ const navLinkBaseClass =
 const navItems = [
   {
     label: "home",
-    href: "/?preLoad=false",
+    href: "/",
     shortcut: "H",
     match: (path: string) => path === "/",
   },
