@@ -131,7 +131,7 @@ export default function Works() {
   }, []);
 
   return (
-    <div className="flex h-dvh w-full max-w-3xl justify-center overflow-hidden">
+    <div className="flex h-dvh w-full max-w-3xl justify-center overflow-hidden px-4">
       <div className="flex h-full min-h-0 w-full flex-col items-center pt-[20vh] pb-[10vh]">
         <h1 className="flex w-fit shrink-0 items-center justify-center gap-2 font-display text-4xl uppercase lg:text-5xl">
           Works

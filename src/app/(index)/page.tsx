@@ -21,7 +21,7 @@ const heroRevealProps = {
 export default function Home() {
   return (
     <div
-      className="flex flex-col items-center justify-center text-center transition-colors duration-150 ease-out has-[a:hover]:text-foreground/10"
+      className="flex flex-col items-center justify-center px-4 text-center transition-colors duration-150 ease-out has-[a:hover]:text-foreground/10"
       data-copy-wrapper="true"
     >
       <MaskedTextReveal

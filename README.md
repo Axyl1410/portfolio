@@ -2,7 +2,7 @@
 
 ![Open Graph preview](https://nguyentruonggiang.id.vn/og)
 
-Modern, animation‑driven personal portfolio built with Next.js, GSAP, and View Transitions, showcasing my work as a full‑stack developer.
+Modern, animation‑driven personal portfolio built with Next.js, Motion, and View Transitions, showcasing my work as a full‑stack developer.
 
 Featured project: **[Sora UI](https://ui.soralabs.io.vn)** — motion-first React component registry ([Product Hunt](https://www.producthunt.com/products/sora-ui)).
 
@@ -11,7 +11,7 @@ Featured project: **[Sora UI](https://ui.soralabs.io.vn)** — motion-first Reac
 - **Framework**: Next.js (App Router)
 - **Language**: TypeScript
 - **Styling**: CSS utilities & Tailwind css
-- **Animations**: GSAP (scroll reveals, loaders, nav, buttons)
+- **Animations**: Motion (scroll reveals, loaders, nav, buttons)
 - **UI primitives**: [Sora UI](https://ui.soralabs.io.vn) (`@soralabs` shadcn registry — install-ready for Phase 2)
 - **Page Transitions**: View Transitions API
 - **Deployment Target**: Cloudflare (via OpenNext)
@@ -30,7 +30,7 @@ Registry URL: `https://ui.soralabs.io.vn/r/{name}.json`
 
 - **Animated page transitions** using the View Transitions API
 - **Intro loader** that reveals the hero content, nav, and menu in a coordinated sequence
-- **Scroll‑based text reveals** (word/character splitting with GSAP)
+- **Scroll‑based text reveals** (word/character splitting with Motion)
 - **Responsive navigation** with animated underline and menu overlay
 - **Lightweight, performance‑minded motion** that respects `prefers-reduced-motion`
 
