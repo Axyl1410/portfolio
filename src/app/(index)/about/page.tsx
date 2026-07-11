@@ -45,6 +45,7 @@ export default function About() {
   return (
     <div className="w-full max-w-3xl px-4 py-24 text-left">
       <InlineTestimonials
+        className="text-lg! lg:text-3xl!"
         interaction="both"
         reveal={{ viewportMargin: "0px" }}
         testimonials={ELSEWHERE}

@@ -11,7 +11,15 @@ import {
 } from "motion/react";
 import Image from "next/image";
 import type { CSSProperties, ReactNode, RefObject } from "react";
-import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { Skeleton } from "@/components/sora-ui/effects/skeleton";
 import { cn } from "@/lib/utils";
 
 const EXPO_OUT = [0.19, 1, 0.22, 1] as const;
@@ -187,6 +195,8 @@ function TestimonialAvatar({
   avatarSize,
   renderAvatar,
 }: TestimonialAvatarProps) {
+  const [loaded, setLoaded] = useState(false);
+
   if (renderAvatar) {
     return renderAvatar(testimonial, avatarSize);
   }
@@ -196,20 +206,29 @@ function TestimonialAvatar({
   }
 
   return (
-    <Image
-      alt={testimonial.author.name}
-      height={avatarSize}
-      src={testimonial.author.avatar}
-      style={{
-        width: avatarSize,
-        height: avatarSize,
-        borderRadius: "50%",
-        objectFit: "cover",
-        display: "block",
-      }}
-      unoptimized
-      width={avatarSize}
-    />
+    <span className="relative block size-full">
+      <Image
+        alt={testimonial.author.name}
+        height={avatarSize}
+        onError={() => setLoaded(true)}
+        onLoad={() => setLoaded(true)}
+        src={testimonial.author.avatar}
+        style={{
+          width: avatarSize,
+          height: avatarSize,
+          borderRadius: "50%",
+          objectFit: "cover",
+          display: "block",
+          opacity: loaded ? 1 : 0,
+          transition: "opacity 0.15s ease-out",
+        }}
+        unoptimized
+        width={avatarSize}
+      />
+      {loaded ? null : (
+        <Skeleton className="absolute inset-0 size-full" rounded="full" />
+      )}
+    </span>
   );
 }
 
@@ -535,15 +554,33 @@ function useRevealLineGroups(
       if (width > 0) {
         measureNode.style.width = `${width}px`;
       }
-      setLineGroups(groupTokensByLine(measureNode, fontSize * 1.35));
+
+      // Read the *actual* rendered font metrics off the container rather
+      // than trusting the fontSize prop — consumers can override the
+      // visible size responsively via className (e.g. `text-lg lg:text-3xl`),
+      // and measuring at the wrong size produces wrong line breaks.
+      const computed = getComputedStyle(container);
+      const actualFontSize = Number.parseFloat(computed.fontSize);
+      const resolvedFontSize = Number.isNaN(actualFontSize)
+        ? fontSize
+        : actualFontSize;
+      measureNode.style.fontSize = `${resolvedFontSize}px`;
+      const actualLineHeight = Number.parseFloat(computed.lineHeight);
+      const lineHeightPx = Number.isNaN(actualLineHeight)
+        ? resolvedFontSize * 1.35
+        : actualLineHeight;
+
+      setLineGroups(groupTokensByLine(measureNode, lineHeightPx));
     };
 
     measure();
     document.fonts.ready.then(measure);
     const observer = new ResizeObserver(measure);
     observer.observe(container);
+    window.addEventListener("resize", measure);
 
     return () => {
+      window.removeEventListener("resize", measure);
       cancelled = true;
       observer.disconnect();
     };
@@ -734,6 +771,16 @@ function RevealLines({
       ? new Set(lineGroups.map((_, index) => index))
       : new Set()
   );
+  // Once the entrance reveal has played through, remember it: a later
+  // remeasure (e.g. a viewport resize regrouping lines by width) remounts
+  // these spans with new keys, and without this they'd replay the slide-up
+  // entrance every time instead of just snapping into place.
+  const hasRevealedRef = useRef(false);
+  useEffect(() => {
+    if (shouldAnimate) {
+      hasRevealedRef.current = true;
+    }
+  }, [shouldAnimate]);
 
   return (
     <>
@@ -741,7 +788,8 @@ function RevealLines({
         const lineKey = group
           .map((index) => tokens[index]?.key ?? index)
           .join("|");
-        const lineMaskDone = doneLines.has(lineIndex);
+        const lineMaskDone = hasRevealedRef.current || doneLines.has(lineIndex);
+        const initialY = prefersReducedMotion ? { y: "0%" } : { y: hiddenY };
 
         return (
           <span
@@ -754,7 +802,7 @@ function RevealLines({
             <motion.span
               animate={shouldAnimate ? { y: "0%" } : { y: hiddenY }}
               className="block w-full will-change-transform [backface-visibility:hidden]"
-              initial={prefersReducedMotion ? { y: "0%" } : { y: hiddenY }}
+              initial={hasRevealedRef.current ? false : initialY}
               onAnimationComplete={() => {
                 if (shouldAnimate) {
                   setDoneLines((prev) => {
