@@ -3,14 +3,9 @@
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 export default function NotFound() {
   const router = useRouter();
-
-  useEffect(() => {
-    document.body.style.background = "black";
-  }, []);
 
   return (
     <section className="flex h-screen w-screen flex-1 flex-col items-center justify-center bg-white">

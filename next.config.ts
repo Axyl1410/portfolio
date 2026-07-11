@@ -9,6 +9,16 @@ const nextConfig: NextConfig = {
         hostname: "ui.soralabs.io.vn",
         pathname: "/docs-og/**",
       },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "scontent.fsgn5-3.fna.fbcdn.net",
+        pathname: "/**",
+      },
     ],
   },
 };
