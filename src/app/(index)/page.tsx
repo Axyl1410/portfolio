@@ -26,7 +26,7 @@ export default function Home() {
     >
       <MaskedTextReveal
         {...heroRevealProps}
-        as="div"
+        as="h1"
         className="font-display text-3xl uppercase lg:text-6xl"
         delay={0}
         text="Yo 'm Axyl"

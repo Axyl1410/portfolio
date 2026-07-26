@@ -1,19 +1,23 @@
 import type { Metadata } from "next";
 import { ViewTransitions } from "next-view-transitions";
 import "./globals.css";
+import { PersonJsonLd } from "@/components/person-json-ld";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { helveticaNeue, optiRomanaRoman } from "@/lib/fonts";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: {
-    default: "Truong Giang — Freelance Software Engineer",
+    default: "Truong Giang — Full-Stack Developer",
     template: "%s — Truong Giang",
   },
   description:
     "Creative developer bridging the gap between design and technology. Services cover interactive frontend, creative coding, UI animation, web performance, mobile apps, prototyping, and technical direction.",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Truong Giang — Full-stack Developer",
+    title: "Truong Giang — Full-Stack Developer",
     description:
       "Creative developer bridging the gap between design and technology",
     images: [
@@ -27,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Truong Giang — Full-stack Developer",
+    title: "Truong Giang — Full-Stack Developer",
     description:
       "Creative developer bridging the gap between design and technology",
     images: ["/og"],
@@ -47,7 +51,9 @@ export default function RootLayout({
         lang="en"
         suppressHydrationWarning
       >
-        <head />
+        <head>
+          <PersonJsonLd />
+        </head>
         <body className="antialiased">
           <ThemeProvider>{children}</ThemeProvider>
         </body>
