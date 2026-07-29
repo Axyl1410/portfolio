@@ -19,6 +19,11 @@ const nextConfig: NextConfig = {
         hostname: "scontent.fsgn5-3.fna.fbcdn.net",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "sora.axyl.io.vn",
+        pathname: "/media/**",
+      },
     ],
   },
 };
